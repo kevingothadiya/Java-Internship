@@ -1,0 +1,7 @@
+<hr>
+<h1 style="text-align: center;">Two Way Bindidng</h1>
+<hr>
+
+<input type="text" name="full Name" placeholder="Enter Your Full Name" [(ngModel)]="displayData">
+
+<h3 *ngIf="displayData!=''">Full Name : {{displayData}}</h3>

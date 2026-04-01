@@ -1,0 +1,59 @@
+
+<h1 [ngStyle]="myHeaderStyle">lowercase,uppercase,titlecase pipes</h1>
+<hr>
+<h3>{{name | lowercase}}</h3>
+<h3>{{name | uppercase}}</h3>
+<h3>{{name | titlecase}}</h3>
+<hr>
+
+<h1 [ngStyle]="myHeaderStyle">json pipe</h1>
+<hr>
+<h2>Student Data : {{studentData | json}}</h2>
+<hr>
+
+<h1 [ngStyle]="myHeaderStyle">slice pipe</h1>
+<hr>
+<h3>{{name | slice:6}}</h3>
+<h3>{{name | slice:2:9}}</h3>
+<h3>{{name | slice:0:5}}</h3>
+<hr>
+
+<h1 [ngStyle]="myHeaderStyle">number,percent Pipe</h1>
+<hr>
+<h3>percent : {{myNumber1 | percent}}</h3>
+<h3>number : {{myNumber2 | number:'3.5'}}</h3>
+<h3>number : {{myNumber2 | number:'2.2-3'}}</h3>
+<h3>number : {{myNumber2 | number:'1.3-5'}}</h3>
+<hr>
+
+<hr>
+<h1 [ngStyle]="myHeaderStyle">Currency pipe</h1>
+<hr>
+<h3>{{myMoney | currency}}</h3>
+<h3>{{myMoney | currency:'INR'}}</h3>
+<h3>{{myMoney | currency:'EUR':'code'}}</h3>
+
+<hr>
+<h1 [ngStyle]="myHeaderStyle">Date Time pipe</h1>
+<hr>
+<h3>{{date}}</h3>
+<h3>Short :  {{date | date:'short'}}</h3>
+<h3>Medium :  {{date | date:'medium'}}</h3>
+<h3>Long :  {{date | date:'long'}}</h3>
+<h3>Short Date :  {{date | date:'shortDate'}}</h3>
+<h3>Medium Date :  {{date | date:'mediumDate'}}</h3>
+<h3>Long Date :  {{date | date:'longDate'}}</h3>
+<h3>Short Time :  {{date | date:'shortTime'}}</h3>
+<h3>Medium Time :  {{date | date:'mediumTime'}}</h3>
+<h3>Long Time :  {{date | date:'longTime'}}</h3>
+
+<h3>Custom Date :  {{date | date:'dd-MM-yyyy'}}</h3>
+<h3>Custom Time :  {{date | date:'hh:mm:ss'}}</h3>
+<hr>
+
+<h1 [ngStyle]="myHeaderStyle">Custom Power pipe</h1>
+<h1>{{5 | power:5}}</h1>
+<h1>{{myNumber3 | power:2}}</h1>
+<h1>{{2 | power:3}}</h1>
+
+<h1> {{ 6 | fectorPipe}}</h1>

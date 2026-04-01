@@ -1,0 +1,46 @@
+<hr><h1 style="text-align: center; color: rgb(22, 83, 83);">Update Book</h1><hr>
+<label>Book Id:</label><br>
+<input  #myId type="number" name="id" placeholder="Enter Id" >
+<button (click)="getBookDataById(+myId.value)"  type="submit" class="btn btn-primary m-2">Edit</button>
+
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <form #updateForm="ngForm" *ngIf="showform" (ngSubmit)="submitUpdate(updateForm)">
+
+        <div>
+            <h2 style="text-align: center; color: rgb(22, 83, 83);">Update Book </h2>
+            <hr>
+        </div>
+
+         <div class="mb-3">
+          <label for="id" class="form-label">Id</label>
+          <input type="text" class="form-control" id="id" name="id" [(ngModel)]="bookData.id" disabled>
+        </div>
+
+        <div class="mb-3">
+          <label for="myTitle" class="form-label">Title</label>
+          <input type="text" class="form-control" id="myTitle" name="title" [(ngModel)]="bookData.title">
+        </div>
+
+        <div class="mb-3">
+          <label for="myAuthor" class="form-label">Author</label>
+          <input type="text" class="form-control" id="myAuthor" name="author" [(ngModel)]="bookData.author">
+        </div>
+
+        <div class="mb-3">
+          <label for="myPrice" class="form-label">Price</label>
+          <input type="text" class="form-control" id="myPrice" name="price" [(ngModel)]="bookData.price">
+        </div>
+
+        <!-- <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div> -->
+
+        <button type="submit" class="btn btn-primary col-md-12">Update</button>
+      </form>
+    </div>
+  </div>
+</div>

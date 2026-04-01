@@ -1,0 +1,141 @@
+<section class="bg-custom d-flex justify-content-center align-items-center min-vh-100 py-4">
+    <div class="card shadow" style="width: 400px; border-radius: 10px;">
+
+        <div class="card-body p-4">
+            <h4 class="text-center mb-3">Student Registration</h4>
+
+            <form #myForm="ngForm" (ngSubmit)="getFormData(myForm)">
+
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name"
+                        [class.is-invalid]="nameData.touched && nameData.invalid" required minlength="5" ngModel
+                        #nameData="ngModel" />
+                </div>
+                <div class="alert alert-danger" *ngIf="nameData.touched && nameData.invalid">
+                    <div *ngIf="nameData.errors && nameData.errors['required']">
+                        Name Can not be empty
+                    </div>
+                    <div *ngIf="nameData.errors && nameData.errors['minlength']">
+                        Name length must be at least 5
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email"
+                        [class.is-invalid]="emailData.touched && emailData.invalid" required
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" ngModel #emailData="ngModel" />
+                </div>
+                <div class="alert alert-danger" *ngIf="emailData.touched && emailData.invalid">
+                    <div *ngIf="emailData.errors && emailData.errors['required']">
+                        Email can not be empty
+                    </div>
+                    <div *ngIf="emailData.errors && emailData.errors['pattern']">
+                        Please Enter valid Email
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label d-block">Gender</label>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Male" ngModel required>
+                        <label class="form-check-label">Male</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Female" ngModel>
+                        <label class="form-check-label">Female</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Other" ngModel>
+                        <label class="form-check-label">Other</label>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" name="phone"
+                        [class.is-invalid]="phoneData.touched && phoneData.invalid" required pattern="^[0-9]{10}$"
+                        ngModel #phoneData="ngModel" />
+                </div>
+                <div class="alert alert-danger" *ngIf="phoneData.touched && phoneData.invalid">
+                    <div *ngIf="phoneData.errors && phoneData.errors['required']">
+                        Phone Number can not be empty
+                    </div>
+                    <div *ngIf="phoneData.errors && phoneData.errors['pattern']">
+                        Please Enter valid Phone Number
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-label">City</label>
+                    <select class="form-select" name="city" [class.is-invalid]="cityData.touched && cityData.invalid"
+                        ngModel #cityData="ngModel" required>
+                        <option value='' selected disabled>Select City</option>
+                        <option>Ahmedabad</option>
+                        <option>Surat</option>
+                        <option>Rajkot</option>
+                    </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="cityData.touched && cityData.invalid">
+                    <div *ngIf="cityData.errors && cityData.errors['required']">
+                        Please select City
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" rows="2" name="address"
+                        [class.is-invalid]="addressData.touched && addressData.invalid" required minlength="10" ngModel
+                        #addressData="ngModel"></textarea>
+                </div>
+                <div class="alert alert-danger" *ngIf="addressData.touched && addressData.invalid">
+                    <div *ngIf="addressData.errors && addressData.errors['required']">
+                        Address can not be empty
+                    </div>
+                    <div *ngIf="addressData.errors && addressData.errors['minlength']">
+                        Address length must be at least 10
+                    </div>
+                </div>
+
+                <!-- Subjects (Checkbox) -->
+                <div class="mb-3">
+                    <label class="form-label d-block">Select Lenguage</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="subjects" value="Java" (change)="changeSubject($event)" ngModel required>
+                        <label class="form-check-label">Java</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="subjects" value="Python" (change)="changeSubject($event)" ngModel
+                            required>
+                        <label class="form-check-label">Python</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="subjects" value="PHP" (change)="changeSubject($event)" ngModel
+                            required>
+                        <label class="form-check-label">PHP</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="subjects" value="C" (change)="changeSubject($event)" ngModel
+                            required>
+                        <label class="form-check-label">C</label>
+                    </div>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,33 @@
+<button (click)="getAllPostData()">Get All Post Data</button>
+<hr>
+<input  #myId type="number" name="data" placeholder="Enter Id" >
+<button (click)="getPostById(+myId.value)">Get By Id</button>
+<hr>
+<button (click)="onReset()">Reset</button>
+<table class="table table-striped ">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">userId</th>
+      <th scope="col">Title</th>
+      <th scope="col">Body</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let data of myPostData">
+      <th scope="row">{{data.id}}</th>
+      <td>{{data.userId}}</td>
+      <td>{{data.title}}</td>
+      <td>{{data.body}}</td>
+    </tr>
+  </tbody>
+  <tbody >
+    <tr *ngIf="myPostDataById">
+      <th scope="row">{{myPostDataById.id}}</th>
+      <td>{{myPostDataById.userId}}</td>
+      <td>{{myPostDataById.title}}</td>
+      <td>{{myPostDataById.body}}</td>
+    </tr>
+  </tbody>
+  
+</table>

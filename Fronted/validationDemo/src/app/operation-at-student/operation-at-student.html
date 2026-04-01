@@ -1,0 +1,206 @@
+<hr>
+<h2 style="text-align: center;">Get All Student</h2>
+<div class="d-grid gap-2 col-6 mx-auto">
+  <button class="btn btn-primary" type="button" (click)="getAllStudent()">Get Students</button>
+</div>
+<hr>
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email ID</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">City</th>
+      <th scope="col">Address</th>
+      <th scope="col">Subjects</th>
+      <th scope="col">Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let std of myStudentData">
+      <th scope="row">{{std.id}}</th>
+      <td>{{std.name}}</td>
+      <td>{{std.email}}</td>
+      <td>{{std.gender}}</td>
+      <td>{{std.phone}}</td>
+      <td>{{std.city}}</td>
+      <td>{{std.address}}</td>
+      <td>{{std.subjects}}</td>
+      <td>
+        <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="setDeletId(std.id)">Delete</button>
+        <button type="button" class="btn btn-primary" (click)="getStudentData(std.id)">Edit</button>
+    </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title">Confirm Delete</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        Are you sure you want to delete Student have Id {{selectedId}} ?
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-danger" (click)="confirmDelete()">
+          Delete
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<section class="bg-custom d-flex justify-content-center align-items-center min-vh-100 py-4" *ngIf="showform">
+    <div class="card shadow" style="width: 400px; border-radius: 10px;">
+
+        <div class="card-body p-4">
+            <h4 class="text-center mb-3">Update Student</h4>
+
+            <form #updateForm="ngForm" (submit)="submitUpdate(updateForm)">
+
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" name="name"
+                        [class.is-invalid]="nameData.touched && nameData.invalid" required minlength="5" ngModel
+                        #nameData="ngModel" [(ngModel)]="myStudentDataById.name"/>
+                </div>
+                <div class="alert alert-danger" *ngIf="nameData.touched && nameData.invalid">
+                    <div *ngIf="nameData.errors && nameData.errors['required']">
+                        Name Can not be empty
+                    </div>
+                    <div *ngIf="nameData.errors && nameData.errors['minlength']">
+                        Name length must be at least 5
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email"
+                        [class.is-invalid]="emailData.touched && emailData.invalid" required
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" ngModel #emailData="ngModel" [(ngModel)]="myStudentDataById.email"/>
+                </div>
+                <div class="alert alert-danger" *ngIf="emailData.touched && emailData.invalid">
+                    <div *ngIf="emailData.errors && emailData.errors['required']">
+                        Email can not be empty
+                    </div>
+                    <div *ngIf="emailData.errors && emailData.errors['pattern']">
+                        Please Enter valid Email
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label d-block">Gender</label>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Male" ngModel [(ngModel)]="myStudentDataById.gender">
+                        <label class="form-check-label">Male</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Female" ngModel [(ngModel)]="myStudentDataById.gender">
+                        <label class="form-check-label">Female</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Other" ngModel [(ngModel)]="myStudentDataById.gender">
+                        <label class="form-check-label">Other</label>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" name="phone"
+                        [class.is-invalid]="phoneData.touched && phoneData.invalid" required pattern="^[6-9]\d{9}$"
+                        ngModel #phoneData="ngModel" [(ngModel)]="myStudentDataById.phone"/>
+                </div>
+                <div class="alert alert-danger" *ngIf="phoneData.touched && phoneData.invalid">
+                    <div *ngIf="phoneData.errors && phoneData.errors['required']">
+                        Phone Number can not be empty
+                    </div>
+                    <div *ngIf="phoneData.errors && phoneData.errors['pattern']">
+                        Please Enter valid Phone Number
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-label">City</label>
+                    <select class="form-select" name="city" [class.is-invalid]="cityData.touched && cityData.invalid"
+                        ngModel #cityData="ngModel" required [(ngModel)]="myStudentDataById.city">
+                        <option value='' selected disabled>Select City</option>
+                        <option>Ahmedabad</option>
+                        <option>Surat</option>
+                        <option>Rajkot</option>
+                    </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="cityData.touched && cityData.invalid">
+                    <div *ngIf="cityData.errors && cityData.errors['required']">
+                        Please select City
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" rows="2" name="address"
+                        [class.is-invalid]="addressData.touched && addressData.invalid" required minlength="10" ngModel
+                        #addressData="ngModel" [(ngModel)]="myStudentDataById.address"></textarea>
+                </div>
+                <div class="alert alert-danger" *ngIf="addressData.touched && addressData.invalid">
+                    <div *ngIf="addressData.errors && addressData.errors['required']">
+                        Address can not be empty
+                    </div>
+                    <div *ngIf="addressData.errors && addressData.errors['minlength']">
+                        Address length must be at least 10
+                    </div>
+                </div>
+
+                <!-- Subjects (Checkbox) -->
+                <div class="mb-3">
+                    <label class="form-label d-block">Select Lenguage</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="subjects" value="Java" (change)="changeSubject($event)"  required>
+                        <label class="form-check-label">Java</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="subjects" value="Python" (change)="changeSubject($event)" 
+                            required>
+                        <label class="form-check-label">Python</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="subjects" value="PHP" (change)="changeSubject($event)" 
+                            required>
+                        <label class="form-check-label">PHP</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="subjects" value="C" (change)="changeSubject($event)" 
+                            required>
+                        <label class="form-check-label">C</label>
+                    </div>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</section>

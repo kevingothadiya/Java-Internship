@@ -1,0 +1,26 @@
+<hr>
+<h1 style="text-align: center;">Event Binding</h1>
+
+<button (click)="onSave()">Clike here!</button>
+
+<hr>
+
+<input #fname type="text" name="name" placeholder="Enter Your Name" ><br>
+<input #pass type="text" name="password" placeholder="Enter Your password"><br>
+<button (click)="setName(fname.value,pass.value)">Click</button>
+
+<h1>Name : {{name}}</h1>
+<h1>PassWord : {{userPass}}</h1>
+
+<hr>
+
+<h1 [style.color] = "textColor">Color</h1>
+
+<button (click)="redColor()">Red</button>
+<button (click)="yellowColor()">Yellow</button>
+<button (click)="blueColor()">Blue</button>
+
+<hr>
+
+<h3>{{incdec}}</h3>
+<button (click)="incrementDecrement('add')">+</button> || <button (click)="incrementDecrement('sub')">-</button>

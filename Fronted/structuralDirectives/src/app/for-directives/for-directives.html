@@ -1,0 +1,28 @@
+<h1 style="text-align: center;">*ngFor Directive</h1>
+
+<ul *ngFor="let state of stateList">
+    <li>{{state}}</li>
+</ul>
+
+<hr>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Age</th>
+      <th scope="col">City</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let std of studentList; index as i">
+      <th scope="row">{{i+1}}</th>
+      <td>{{std.fname}}</td>
+      <td>{{std.lname}}</td>
+      <td>{{std.age}}</td>
+      <td>{{std.city}}</td>
+    </tr>
+  </tbody>
+</table>

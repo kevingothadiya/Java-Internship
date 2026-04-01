@@ -1,0 +1,11 @@
+<h1 style="text-align: center;">*ngSwitch Directive</h1>
+
+<input type="text" name="leng" [(ngModel)]="leng">
+<div [ngSwitch]="leng">
+    <div *ngSwitchCase="'java'"> This is Java Language</div>
+    <div *ngSwitchCase="'c'"> This is c Language</div>
+    <div *ngSwitchCase="'c++'"> This is C++ Language</div>
+    <div *ngSwitchCase="'c#'"> This is c# Language</div>
+    <div *ngSwitchCase="'python'"> This is python Language</div>
+    
+</div>

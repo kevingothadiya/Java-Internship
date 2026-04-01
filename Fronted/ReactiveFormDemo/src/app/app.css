@@ -1,0 +1,39 @@
+.custom-navbar {
+    background: linear-gradient(135deg, #7fbaeb, #115266);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Nav links */
+.nav-link {
+    color: white !important;
+    margin: 0 10px;
+    position: relative;
+    transition: 0.3s;
+}
+
+/* Hover underline animation */
+.nav-link::after {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transition: 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+/* Active link */
+.active-link {
+    font-weight: bold;
+}
+
+/* Button hover */
+.btn-light:hover {
+    background-color: #000;
+    color: #fff;
+}

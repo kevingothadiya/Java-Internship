@@ -1,0 +1,36 @@
+<h1 style="text-align: center;"> *ngIf Directive</h1>
+<hr>
+
+<h3 *ngIf="isDisplay; else elsePart">
+    
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda culpa aperiam tempora porro 
+    suscipit, excepturi unde aliquam amet veritatis eius non ad soluta, atque odio repudiandae ratione
+     alias ipsa minus.
+    </p>
+</h3>
+
+<ng-template #elsePart>
+    <h1>No Any Theory Available</h1>
+</ng-template>
+
+<hr>
+
+<input type="text" name="name" placeholder="Enter Your Name" [(ngModel)]="fullname">
+
+<h3 *ngIf="fullname; else request">{{fullname}}</h3>
+
+<ng-template #request>
+    <h2>Enter Your Name</h2>
+</ng-template>
+
+<hr>
+
+<h2 *ngIf="isDisplay;then trueData; else falseData"></h2>
+
+<ng-template #trueData>
+    <h1>This is If Part </h1>
+</ng-template>
+
+<ng-template #falseData>
+    <h1>This is Else Part</h1>
+</ng-template>

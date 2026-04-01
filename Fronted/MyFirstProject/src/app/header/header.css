@@ -1,0 +1,38 @@
+.header {
+  height: 60px;
+  background: #2c3e50;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+/* Nav links */
+.header nav a,
+.auth a {
+  margin: 0 10px;
+  color: white;
+  text-decoration: none;
+  padding: 5px 8px;
+  transition: all 0.3s ease;
+}
+
+/* Simple hover (Angular-safe) */
+.header nav a:hover,
+.auth a:hover {
+  background-color: #34495e;
+  border-radius: 4px;
+}
+
+/* Signup button */
+.signup {
+  background: #3498db;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.signup:hover {
+  background: #2980b9;
+}

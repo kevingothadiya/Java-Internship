@@ -1,0 +1,15 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+
+  <div class="sidebar-header">
+    <span class="logo">MySite</span>
+    <button (click)="toggleSidebar()">☰</button>
+  </div>
+
+  <nav>
+    <a routerLink="/dashboard">🏠 <span>Dashboard</span></a>
+    <a routerLink="/profile">👤 <span>Profile</span></a>
+    <a routerLink="/settings">⚙️ <span>Settings</span></a>
+    <a routerLink="/logout">🚪 <span>Logout</span></a>
+  </nav>
+
+</div>

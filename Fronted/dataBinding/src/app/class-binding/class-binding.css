@@ -1,0 +1,13 @@
+.myFontColor{
+    color: blueviolet;
+}
+.myFontType{
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 30px;
+    font: bold;
+}
+
+.myFontBgColor{
+    background-color: rgb(152, 184, 185);
+    border: 2px solid black;
+}

@@ -1,0 +1,123 @@
+<section class="bg-custom d-flex justify-content-center align-items-center min-vh-100 py-4">
+    <div class="card shadow" style="width: 400px; border-radius: 10px;">
+
+        <div class="card-body p-4">
+            <h4 class="text-center mb-3">Student Registration</h4>
+
+            <form [formGroup]="myForm" (ngSubmit)="savedata(myForm)">
+
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" formControlName="name" [class.is-invalid]="formControl['name'].touched && formControl['name'].invalid"/>
+                </div>
+                <div class="alert alert-danger" *ngIf="formControl['name'].touched && formControl['name'].invalid" >
+                    <div *ngIf="formControl['name'].errors && formControl['name'].errors['required']">
+                        Name can not be empty
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" formControlName="email" [class.is-invalid]="formControl['email'].touched && formControl['email'].invalid"/>
+                </div>
+                <div class="alert alert-danger" *ngIf="formControl['email'].touched && formControl['email'].invalid" >
+                    <div *ngIf="formControl['email'].errors && formControl['email'].errors['required']">
+                        Email Id can not be empty
+                    </div>
+                    <div *ngIf="formControl['email'].errors && formControl['email'].errors['pattern']">
+                        Please Enter Valid Email Id
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label d-block">Gender</label>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Male" formControlName="gender">
+                        <label class="form-check-label">Male</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Female" formControlName="gender">
+                        <label class="form-check-label">Female</label>
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" value="Other" formControlName="gender">
+                        <label class="form-check-label">Other</label>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" formControlName="phone" [class.is-invalid]="formControl['phone'].touched && formControl['phone'].invalid"/>
+                </div>
+                 <div class="alert alert-danger" *ngIf="formControl['phone'].touched && formControl['phone'].invalid" >
+                    <div *ngIf="formControl['phone'].errors && formControl['phone'].errors['required']">
+                        Phone Number can not be empty
+                    </div>
+                    <div *ngIf="formControl['phone'].errors && formControl['phone'].errors['pattern']">
+                        Please Enter Valid Phone Number
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="form-label">City</label>
+                    <select class="form-select" formControlName="city" [class.is-invalid]="formControl['city'].touched && formControl['city'].invalid">
+                        <option value='' selected disabled>Select City</option>
+                        <option>Ahmedabad</option>
+                        <option>Surat</option>
+                        <option>Rajkot</option>
+                    </select>
+                </div>
+                <div class="alert alert-danger" *ngIf="formControl['city'].touched && formControl['city'].invalid" >
+                    <div *ngIf="formControl['city'].errors && formControl['city'].errors['required']">
+                        Please select City
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Address</label>
+                    <textarea class="form-control" rows="2" formControlName="address" [class.is-invalid]="formControl['address'].touched && formControl['address'].invalid"></textarea>
+                </div>
+                <div class="alert alert-danger" *ngIf="formControl['address'].touched && formControl['address'].invalid" >
+                    <div *ngIf="formControl['address'].errors && formControl['address'].errors['required']">
+                        Address can not be Empty
+                    </div>
+                </div>            
+
+                <!-- Subjects (Checkbox) -->
+                <div class="mb-3">
+                    <label class="form-label d-block">Select Lenguage</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="subjects" (change)="changeSubject($event)" value="Java" >
+                        <label class="form-check-label">Java</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="subjects" (change)="changeSubject($event)" value="Python">
+                        <label class="form-check-label">Python</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="subjects" (change)="changeSubject($event)" value="PHP">
+                        <label class="form-check-label">PHP</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" formControlName="subjects" (change)="changeSubject($event)" value="C">
+                        <label class="form-check-label">C</label>
+                    </div>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,26 @@
+<hr><h1 style="text-align: center; color: rgb(22, 83, 83);">Get All Book</h1><hr>
+<div class="d-flex justify-content-center mt-3">
+  <button (click)="getLibraryAllBooks()" type="button" class="btn btn-primary col-md-4">
+    Get Books
+  </button>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Author</th>
+      <th scope="col">Price</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let book of books">
+      <th scope="row">{{book.id}}</th>
+      <td>{{book.title}}</td>
+      <td>{{book.author}}</td>
+      <td>{{book.price}}</td>
+      <td><button (click)="deleteDataById(book.id)" type="button" class="btn btn-primary">Delete</button></td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,26 @@
+<h1 style="text-align: center; color: rgb(22, 83, 83);">Save Book</h1><hr>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <form #myForm="ngForm" (ngSubmit)="getFormData(myForm)">
+        <div class="mb-3">
+          <label for="myTitle" class="form-label">Title</label>
+          <input type="text" class="form-control" id="myTitle" aria-describedby="emailHelp" name="title" ngModel required>
+        </div>
+        <div class="mb-3">
+          <label for="myAuthor" class="form-label">Author</label>
+          <input type="text" class="form-control" id="myAuthor" name="author" ngModel required>
+        </div>
+        <div class="mb-3">
+          <label for="myPrice" class="form-label">Price</label>
+          <input type="text" class="form-control" id="myPrice" name="price" ngModel required>
+        </div>
+        <!-- <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div> -->
+        <button type="submit" class="btn btn-primary col-md-12">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

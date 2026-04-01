@@ -1,0 +1,38 @@
+<hr>
+<h1 style="text-align: center;">Class Binding</h1>
+<hr>
+
+<h1>Three way to Class Binding</h1>
+<hr>
+<h2>1. Using the DOM 'className' Property</h2>
+<hr>
+
+<h3 class="myFontColor myFontType">Hello! How are you Guys.</h3>
+<h3 [className]="'myFontColor myFontType myFontBgColor'" >Hello! How are you Guys.</h3>
+
+<h3 [className]="myStyle" >Hello! How are you Guys.</h3>
+
+<hr>
+<h2>2. Using the 'class' Property</h2>
+<hr>
+
+<h3 class="myFontColor myFontType">Hello! How are you Guys.</h3>
+<h3 [class]="'myFontColor myFontType myFontBgColor'" >Hello! How are you Guys.</h3>
+<h3 [class]="myStyle" >Hello! How are you Guys.</h3>
+<h3 [class]="condition?myFirstStyle:mySecondStyle" >Hello! How are you Guys.</h3>
+<h3 [class.myFontBgColor]="true" >Hello! How are you Guys.</h3>
+
+<hr>
+<h2>3. Using the 'ngClass' Property</h2>
+<hr>
+
+<h3 [ngClass]="'myFontColor myFontType'">Hello! How are you Guys.</h3>
+<h3 [ngClass]="{'myFontType':true}">Hello! How are you Guys.</h3>
+<h3 [ngClass]="styleSheet">Hello! How are you Guys.</h3>
+
+
+
+
+
+
+
