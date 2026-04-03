@@ -21,6 +21,6 @@ public class Donation {
     private String remark;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "donor_id")
+    @JoinColumn(name = "donor_id", nullable = false)
     private DonorDetails donorDetails;
 }

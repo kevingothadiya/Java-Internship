@@ -1,0 +1,86 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow">
+        <div class="card-body">
+
+          <h3 class="text-center text-danger mb-4">Register</h3>
+
+          <form [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+
+            <!-- Name -->
+            <div class="mb-3">
+              <label>Name</label>
+              <input type="text" class="form-control" formControlName="name" [class.is-invalid]="formControl['name'].touched && formControl['name'].invalid">
+            </div>
+            <div class="alert alert-danger" *ngIf="formControl['name'].touched && formControl['name'].invalid" >
+                <div *ngIf="formControl['name'].errors && formControl['name'].errors['required']">
+                   Name can not be empty
+                </div>
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+              <label>Email</label>
+              <input type="email" class="form-control" formControlName="email" [class.is-invalid]="formControl['email'].touched && formControl['email'].invalid">
+            </div>
+            <div class="alert alert-danger" *ngIf="formControl['email'].touched && formControl['email'].invalid" >
+                    <div *ngIf="formControl['email'].errors && formControl['email'].errors['required']">
+                        Email Id can not be empty
+                    </div>
+                    <div *ngIf="formControl['email'].errors && formControl['email'].errors['pattern']">
+                        Please Enter Valid Email Id
+                    </div>
+                </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+              <label>Password</label>
+              <input type="password" class="form-control" formControlName="password" [class.is-invalid]="formControl['password'].touched && formControl['password'].invalid">
+            </div>
+            <div class="alert alert-danger" *ngIf="formControl['password'].touched && formControl['password'].invalid" >
+                <div *ngIf="formControl['password'].errors && formControl['password'].errors['required']">
+                    Password can not be empty
+                </div>
+                 <div *ngIf="formControl['password'].errors && formControl['password'].errors['pattern']">
+                    Please Enter Valid Password
+                </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="mb-3">
+              <label>Phone Number</label>
+              <input type="text" class="form-control" formControlName="phoneNum" [class.is-invalid]="formControl['phoneNum'].touched && formControl['phoneNum'].invalid">
+            </div>
+             <div class="alert alert-danger" *ngIf="formControl['phoneNum'].touched && formControl['phoneNum'].invalid" >
+                    <div *ngIf="formControl['phoneNum'].errors && formControl['phoneNum'].errors['required']">
+                        Phone Number can not be empty
+                    </div>
+                    <div *ngIf="formControl['phoneNum'].errors && formControl['phoneNum'].errors['pattern']">
+                        Please Enter Valid Phone Number
+                    </div>
+                </div>
+
+            <!-- Role -->
+            <div class="mb-3">
+              <label>Role</label>
+              <select class="form-control" formControlName="role">
+                 <option value='' selected disabled>--Select Role--</option>
+                  <option value="ADMIN">USER</option>
+                  <option value="DONOR">DONOR</option>
+                  <option value="HOSPITAL">HOSPITAL</option>
+            </select>
+            </div>
+
+            <!-- Submit -->
+            <button class="btn btn-danger w-100" [disabled]="myForm.invalid">Register</button>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

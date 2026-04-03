@@ -1,0 +1,27 @@
+<table class="table">
+  <thead class="table-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email ID</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">City</th>
+      <th scope="col">Address</th>
+      <th scope="col">Subjects</th>
+      <th scope="col">Operation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="myStudentData$ | async as std">
+      <th scope="row">{{std.id}}</th>
+      <td>{{std.name}}</td>
+      <td>{{std.email}}</td>
+      <td>{{std.gender}}</td>
+      <td>{{std.phone}}</td>
+      <td>{{std.city}}</td>
+      <td>{{std.address}}</td>
+      <td>{{std.subjects}}</td>
+    </tr>
+  </tbody>
+</table>

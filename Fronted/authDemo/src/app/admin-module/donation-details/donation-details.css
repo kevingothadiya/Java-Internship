@@ -1,0 +1,51 @@
+/* Card Styling */
+.table-card {
+  border-radius: 15px;
+  background: #ffffff;
+}
+
+/* Table Styling */
+.custom-table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.custom-table thead {
+  background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+  color: white;
+}
+
+.custom-table th {
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+/* Row hover effect */
+.custom-table tbody tr {
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f5ff;
+  transform: scale(1.01);
+}
+
+/* Cell spacing */
+.custom-table td,
+.custom-table th {
+  vertical-align: middle;
+  padding: 12px;
+}
+
+/* Badge-like remark styling */
+.custom-table td:last-child {
+  font-weight: 600;
+}
+
+/* Responsive tweak */
+@media (max-width: 768px) {
+  .table-card {
+    padding: 15px;
+  }
+}

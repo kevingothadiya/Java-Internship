@@ -12,12 +12,23 @@ import { Contact } from './contact/contact';
 import { About } from './about/about';
 import { Home } from './home/home';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Profile } from './profile/profile';
 
 @NgModule({
-  declarations: [App, RegisterStudent, DisplayData, Login, ErrorPage, Contact, About, Home],
+  declarations: [
+    App,
+    RegisterStudent,
+    DisplayData,
+    Login,
+    ErrorPage,
+    Contact,
+    About,
+    Home,
+    Profile,
+  ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
   providers: [provideBrowserGlobalErrorListeners()],
   bootstrap: [App],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule {}

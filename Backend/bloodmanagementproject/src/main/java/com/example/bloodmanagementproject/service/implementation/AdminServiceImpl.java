@@ -4,6 +4,7 @@ import com.example.bloodmanagementproject.domain.*;
 import com.example.bloodmanagementproject.helper.ExcelHelper;
 import com.example.bloodmanagementproject.helper.MapperHelper;
 import com.example.bloodmanagementproject.proxy.BloodStockProxy;
+import com.example.bloodmanagementproject.proxy.DonationProxy;
 import com.example.bloodmanagementproject.proxy.UserProxy;
 import com.example.bloodmanagementproject.repository.*;
 import com.example.bloodmanagementproject.service.AdminService;
@@ -42,6 +43,39 @@ public class AdminServiceImpl implements AdminService {
     public List<UserProxy> getUsers() {
         List<Users> all = userRepo.findAll();
         return all.stream().map(users -> helper.map(users,UserProxy.class)).toList();
+    }
+
+    @Override
+    public List<DonationProxy> getDonationDetails() {
+        List<Donation> all = donationRepo.findAll();
+        return all.stream().map(donation -> helper.map(donation,DonationProxy.class)).toList();
+
+    }
+
+    @Override
+    public String deleteUser(Long id) {
+        Optional<Users> byId = userRepo.findById(id);
+        if(byId.isPresent()){
+            userRepo.deleteById(id);
+            return "Delete Successfully";
+        }
+        else {
+            throw new RuntimeException("No User Found with ID : " + id);
+        }
+    }
+
+    @Override
+    public Users updateUser(Long id, UserProxy userProxy) {
+        Users existingUser = userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+
+        existingUser.setName(userProxy.getName());
+        existingUser.setEmail(userProxy.getEmail());
+        existingUser.setRole(userProxy.getRole());
+        existingUser.setPhoneNum(userProxy.getPhoneNum());
+        existingUser.setStatus(userProxy.getStatus());
+
+        return userRepo.save(existingUser);
     }
 
     @Override

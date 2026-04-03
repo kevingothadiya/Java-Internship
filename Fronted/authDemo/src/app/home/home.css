@@ -1,0 +1,18 @@
+.hero-section {
+  min-height: 90vh;
+  background: linear-gradient(135deg, #ff4d4d, #800000);
+  padding: 60px 0;
+}
+
+.info-card {
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-8px);
+}
+
+.card-title {
+  font-weight: bold;
+}

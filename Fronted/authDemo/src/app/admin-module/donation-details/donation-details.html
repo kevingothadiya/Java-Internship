@@ -1,0 +1,58 @@
+<div class="container mt-5">
+
+  <div class="card shadow-lg border-0 p-4 table-card">
+
+    <h4 class="mb-4 fw-bold text-primary">Donation List</h4>
+
+    <div class="table-responsive">
+      <table class="table align-middle custom-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Donation Date</th>
+            <th>Quantity</th>
+            <th>Remark</th>
+            <th>Action</th> 
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let donation of myDonationDetails">
+            <th scope="row">{{donation.id}}</th>
+            <td>{{donation.donationDate}}</td>
+            <td>{{donation.quantity}}</td>
+
+            <!-- Remark Badge -->
+            <td>
+              <span class="badge px-3 py-2"
+                [ngClass]="{
+                  'bg-success': donation.remark === 'Approve',
+                  'bg-danger': donation.remark === 'Reject',
+                  'bg-warning text-dark': donation.remark === 'Pending'
+                }">
+                {{donation.remark}}
+              </span>
+            </td>
+
+            <!-- Buttons -->
+            <td>
+              <button class="btn btn-success btn-sm me-2" (click)="approveDonationReq(donation.id)"
+                      [disabled]="donation.remark === 'Approve' || donation.remark === 'Reject'">
+                Approve
+              </button>
+
+              <button class="btn btn-danger btn-sm"
+                      [disabled]="donation.remark === 'Reject' || donation.remark === 'Approve'">
+                Reject
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+</div>

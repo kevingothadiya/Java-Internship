@@ -19,7 +19,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let std of myStudentData">
+    <tr *ngFor="let std of myStudentData" routerLink="/profile/{{std.id}}">
       <th scope="row">{{std.id}}</th>
       <td>{{std.name}}</td>
       <td>{{std.email}}</td>

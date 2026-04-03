@@ -80,7 +80,7 @@ public class JwtUtil {
                 .claims(claims)
                 .subject(subject)
                 .issuedAt(new Date(now))
-                .expiration(new Date(now + 1000L * 60 * 60 * 10)) // 10 hours
+                .expiration(new Date(now + 1000L * 60 * 20))
                 .signWith(signingKey(),Jwts.SIG.HS256)
                 .compact();
     }

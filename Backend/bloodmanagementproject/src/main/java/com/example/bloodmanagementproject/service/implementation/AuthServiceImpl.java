@@ -48,7 +48,8 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Email Id Already Exist");
         }
         userProxy.setPassword(passwordEncoder.encode(userProxy.getPassword()));
-        return userRepo.save(helper.map(userProxy, Users.class)).toString();
+        userRepo.save(helper.map(userProxy, Users.class));
+        return "Saved Suvvessfulyy";
     }
 
     @Override
@@ -61,8 +62,15 @@ public class AuthServiceImpl implements AuthService {
             UserDetails userDetails = userDetailService.loadUserByUsername(authRequest.getEmail());
             String token = util.generateToken(userDetails);
 
+            String role = userDetails.getAuthorities()
+                    .stream()
+                    .findFirst()
+                    .map(auth -> auth.getAuthority())
+                    .orElse(null);
+
             response.setToken(token);
             response.setEmail(authRequest.getEmail());
+            response.setRole(role);
         }
         return response;
     }

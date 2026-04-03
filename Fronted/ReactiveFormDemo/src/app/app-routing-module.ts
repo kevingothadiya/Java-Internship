@@ -7,6 +7,7 @@ import { Contact } from './contact/contact';
 import { About } from './about/about';
 import { Home } from './home/home';
 import { ErrorPage } from './error-page/error-page';
+import { Profile } from './profile/profile';
 
 const routes: Routes = [
 
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path:'about',
     component:About
+  },
+  {
+    path:'profile/:id',
+    component:Profile
   },
   {
     path:'**',

@@ -1,0 +1,18 @@
+.dashboard-card {
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+button {
+  border-radius: 10px !important;
+}
+
+h2 {
+  letter-spacing: 1px;
+}

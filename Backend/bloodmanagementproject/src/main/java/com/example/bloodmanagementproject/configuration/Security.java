@@ -26,6 +26,7 @@ public class Security {
     public SecurityFilterChain securityFilterChain(HttpSecurity security){
 
         return security
+                .cors(Customizer.withDefaults())
                 .csrf(csrf->csrf.disable())
                 .sessionManagement(s->s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth->

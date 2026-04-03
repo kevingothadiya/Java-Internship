@@ -30,7 +30,8 @@ public class AuthController {
 
     @PostMapping("/forget")
     public ResponseEntity<String> forget(@RequestBody ForgetPassWord forgetPassWord){
-        return new ResponseEntity<>(authService.forget(forgetPassWord),HttpStatus.OK);
+        authService.forget(forgetPassWord);
+        return new ResponseEntity<>("Password Updated Successfully",HttpStatus.OK);
     }
 
 }

@@ -23,7 +23,7 @@ public class DonorDetails {
     private LocalDate lastDonationDate;
     private Boolean available;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private Users users;
 }

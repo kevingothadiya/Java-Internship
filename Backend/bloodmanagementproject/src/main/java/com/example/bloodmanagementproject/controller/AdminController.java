@@ -1,12 +1,12 @@
 package com.example.bloodmanagementproject.controller;
 
 import com.example.bloodmanagementproject.proxy.BloodStockProxy;
+import com.example.bloodmanagementproject.proxy.DonationProxy;
 import com.example.bloodmanagementproject.proxy.UserProxy;
 import com.example.bloodmanagementproject.service.AdminService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -18,6 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
 
     @Autowired
@@ -26,6 +27,22 @@ public class AdminController {
     @GetMapping("/user")
     public ResponseEntity<List<UserProxy>> getUsers(){
         return new ResponseEntity<>(adminService.getUsers(), HttpStatus.OK);
+    }
+
+    @GetMapping("/donation")
+    public ResponseEntity<List<DonationProxy>> getDonationDetails(){
+        return new ResponseEntity<>(adminService.getDonationDetails(),HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id){
+        return new ResponseEntity<>(adminService.deleteUser(id),HttpStatus.OK);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserProxy userProxy) {
+        adminService.updateUser(id, userProxy);
+        return ResponseEntity.ok("User updated successfully");
     }
 
     @PutMapping("/donor/{id}/approve")
@@ -44,26 +61,37 @@ public class AdminController {
     }
 
     @GetMapping("/excel/user/download")
-    public ResponseEntity<String> downloadUserExcel(){
+    public ResponseEntity<byte[]> downloadUserExcel(){
+//        byte[] bytes = adminService.downloadUserExcel();
+//        String folderPath = "downloads";
+//        File folder = new File(folderPath);
+//        if(!folder.exists()){
+//            folder.mkdirs();
+//        }
+//        String filename = "Users.xlsx";
+//
+//        Path path = Paths.get(folderPath , filename);
+//
+//        try{
+//            Files.write(path , bytes);
+//        }
+//        catch (IOException e){
+//            e.printStackTrace();
+//        }
+//
+//        return  new ResponseEntity<>("File saved at: " + path.toAbsolutePath(),
+//                HttpStatus.OK);
         byte[] bytes = adminService.downloadUserExcel();
-        String folderPath = "downloads";
-        File folder = new File(folderPath);
-        if(!folder.exists()){
-            folder.mkdirs();
-        }
-        String filename = "Users.xlsx";
 
-        Path path = Paths.get(folderPath , filename);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.parseMediaType(
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"));
+        headers.setContentDisposition(ContentDisposition.builder("attachment")
+                .filename("Users.xlsx")
+                .build());
+        headers.setContentLength(bytes.length);
 
-        try{
-            Files.write(path , bytes);
-        }
-        catch (IOException e){
-            e.printStackTrace();
-        }
-
-        return  new ResponseEntity<>("File saved at: " + path.toAbsolutePath(),
-                HttpStatus.OK);
+        return new ResponseEntity<>(bytes, headers, HttpStatus.OK);
     }
 
     @GetMapping("/excel/hospital/download")

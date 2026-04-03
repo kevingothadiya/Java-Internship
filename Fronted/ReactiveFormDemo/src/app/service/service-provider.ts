@@ -21,4 +21,8 @@ export class ServiceProvider {
   deleteStudent(id:number):Observable<any>{
     return this.http.delete(this.baseUrl+"/delete/"+id);
   }
+
+  getStudentById(id:number):Observable<any>{
+    return this.http.get(this.baseUrl+"/get/"+id);
+  }
 }

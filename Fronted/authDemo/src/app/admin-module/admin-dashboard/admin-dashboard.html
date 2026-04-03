@@ -1,0 +1,52 @@
+<div class="container mt-5">
+
+  <h2 class="text-center text-danger mb-5 fw-bold">Admin Dashboard</h2>
+
+  <div class="card shadow-lg border-0 p-4" style="background: linear-gradient(135deg, #f8f9fa, #e9ecef); border-radius: 15px;">
+    
+    <div class="row g-4">
+
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+          <div class="icon mb-3">
+            <i class="bi bi-people-fill fs-1 text-primary"></i>
+          </div>
+          <h5 class="fw-semibold">Get Users</h5>
+          <button class="btn btn-primary mt-3 w-100 fw-semibold" routerLink="/admin/user">
+            Fetch
+          </button>
+        </div>
+      </div>
+      
+      <div class="col-md-6 col-lg-4">
+        <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+          <div class="icon mb-3">
+            <i class="bi bi-people-fill fs-1 text-primary"></i>
+          </div>
+          <h5 class="fw-semibold">Download Details</h5>
+          <button class="btn btn-primary mt-3 w-100 fw-semibold" routerLink="/admin/reports">
+            Download
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+          <div class="icon mb-3">
+            <i class="bi bi-people-fill fs-1 text-primary"></i>
+          </div>
+          <h5 class="fw-semibold">Donation Details</h5>
+          <button class="btn btn-primary mt-3 w-100 fw-semibold" routerLink="/admin/donation">
+            Fetch
+          </button>
+        </div>
+      </div>
+
+    </div>
+    
+  </div>
+
+</div>
+
+<router-outlet></router-outlet>

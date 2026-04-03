@@ -1,0 +1,29 @@
+.table-card {
+  border-radius: 15px;
+  background: linear-gradient(135deg, #f8f9fa, #eef1f5);
+}
+
+.custom-table thead {
+  background-color: #343a40;
+  color: white;
+}
+
+.custom-table th,
+.custom-table td {
+  vertical-align: middle;
+  padding: 12px;
+}
+
+.custom-table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+  background-color: #f1f3f5;
+  transform: scale(1.01);
+}
+
+.badge {
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
