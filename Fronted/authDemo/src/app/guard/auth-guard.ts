@@ -8,10 +8,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     // const token = myStorageService.getItem('authToken')
     const role = myStorageService.getUserRole();
 
-  if (role==='ADMIN') {
-    return true;
-  } 
-  else if (role==='DONOR') {
+  if (role==='ADMIN' || role==='DONOR' || role==='HOSPITAL') {
     return true;
   } 
   else {

@@ -23,7 +23,6 @@ export class StorageService {
 
   getUserRole(): string | null {
     const token = this.getItem('authToken');
-    console.log(token);
     
     
     if (!token) return null;
@@ -31,6 +30,14 @@ export class StorageService {
     const payload = JSON.parse(atob(token.split('.')[1]));
     return payload.roles ? payload.roles[0] : payload. Role;
   }
+
+  getUserId(): number | null {
+  const id = this.getItem('userId');
+
+  if (!id) return null;
+
+  return Number(id);
+}
 
   isTokenExpired(token: string): boolean {
     try {

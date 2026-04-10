@@ -1,1 +1,19 @@
-<p>donation-request works!</p>
+<div class="container mt-4">
+  <h3>Donate Blood</h3>
+
+  <div class="card p-3 shadow-sm">
+
+    <div class="mb-3">
+      <label class="form-label">Quantity (Units)</label>
+      <input 
+        type="number" 
+        class="form-control" 
+        [(ngModel)]="quantity"
+        placeholder="Enter quantity">
+    </div>
+
+    <button class="btn btn-danger" (click)="donate()">
+      Donate
+    </button>
+  </div>
+</div>

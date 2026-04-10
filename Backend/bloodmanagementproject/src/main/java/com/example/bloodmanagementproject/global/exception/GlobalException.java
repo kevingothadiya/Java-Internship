@@ -1,6 +1,8 @@
 package com.example.bloodmanagementproject.global.exception;
 
 import com.example.bloodmanagementproject.custom.exception.NoDonorFoundException;
+import com.example.bloodmanagementproject.custom.exception.NoHospitalFoundException;
+import com.example.bloodmanagementproject.custom.exception.NoSufficientBloodAvailable;
 import com.example.bloodmanagementproject.exception.Response;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -38,6 +40,29 @@ public class GlobalException {
 
         return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(NoHospitalFoundException.class)
+    public ResponseEntity<Response> noHospitalFoundException(NoHospitalFoundException e, HttpServletRequest request){
+        Response res = new Response();
+        res.setMessage(e.getErrMsgHospital());
+        res.setStatus(e.getErrCodeHospital());
+        res.setDateTime(e.getDateTime());
+        res.setPath(request.getRequestURI());
+
+        return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(NoSufficientBloodAvailable.class)
+    public ResponseEntity<Response> noSufficientBloodAvailableFoundException(NoSufficientBloodAvailable e, HttpServletRequest request){
+        Response res = new Response();
+        res.setMessage(e.getErrMsgBlood());
+        res.setStatus(e.getErrCodeBlood());
+        res.setDateTime(e.getDateTime());
+        res.setPath(request.getRequestURI());
+
+        return new ResponseEntity<>(res,HttpStatus.NOT_FOUND);
+    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(

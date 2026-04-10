@@ -31,8 +31,13 @@ export class GetUser implements OnInit{
   // Load user list
   loadUsers() {
     this.service.getUser().subscribe({
-      next: (resp) => this.users = resp,
-      error: (err) => console.error(err)
+      next: (resp) =>{
+        this.users = resp
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error(err)
+      }
     });
   }
 

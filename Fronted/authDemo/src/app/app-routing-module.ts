@@ -12,6 +12,15 @@ import { DownloadReports } from './admin-module/download-reports/download-report
 import { ErrorPage } from './error-page/error-page';
 import { DonationDetails } from './admin-module/donation-details/donation-details';
 import { DonorDashboard } from './donor-module/donor-dashboard/donor-dashboard';
+import { DonorRegistration } from './donor-module/donor-registration/donor-registration';
+import { DonorHistory } from './donor-module/donor-history/donor-history';
+import { DonorProfile } from './donor-module/donor-profile/donor-profile';
+import { DonationRequest } from './donor-module/donation-request/donation-request';
+import { HospitalDashboard } from './hospital-module/hospital-dashboard/hospital-dashboard';
+import { HospitalRegister } from './hospital-module/hospital-register/hospital-register';
+import { BloodRequestHistory } from './hospital-module/blood-request-history/blood-request-history';
+import { HospitalProfile } from './hospital-module/hospital-profile/hospital-profile';
+import { RequestBlood } from './hospital-module/request-blood/request-blood';
 
 const routes: Routes = [
   {
@@ -53,6 +62,49 @@ const routes: Routes = [
   {
     path:'donor',
     component:DonorDashboard,
+    canActivate:[authGuard],
+    children:[
+      {
+        path:'donation-request',
+        component:DonationRequest
+      },
+      {
+        path:'donor-history',
+        component:DonorHistory
+      },
+      {
+        path:'donor-profile',
+        component:DonorProfile
+      }
+    ]
+  },
+  {
+    path:'donor-registration',
+    component:DonorRegistration,
+    canActivate:[authGuard]
+  },
+  {
+    path:'hospital',
+    component:HospitalDashboard,
+    canActivate:[authGuard],
+    children:[
+      {
+        path:'blood-request-history',
+        component:BloodRequestHistory
+      },
+      {
+        path:'profile',
+        component:HospitalProfile
+      },
+      {
+        path:'request-blood',
+        component:RequestBlood
+      }
+    ]
+  },
+  {
+    path:'hospital-register',
+    component:HospitalRegister,
     canActivate:[authGuard]
   },
   {

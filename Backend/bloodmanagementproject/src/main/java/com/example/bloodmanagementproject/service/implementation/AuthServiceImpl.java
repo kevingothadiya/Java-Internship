@@ -59,6 +59,10 @@ public class AuthServiceImpl implements AuthService {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getEmail(), authRequest.getPassword()));
 
         if(authenticate.isAuthenticated()){
+
+            Users user = userRepo.findByEmail(authRequest.getEmail())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
             UserDetails userDetails = userDetailService.loadUserByUsername(authRequest.getEmail());
             String token = util.generateToken(userDetails);
 
@@ -71,6 +75,7 @@ public class AuthServiceImpl implements AuthService {
             response.setToken(token);
             response.setEmail(authRequest.getEmail());
             response.setRole(role);
+            response.setId(user.getId());
         }
         return response;
     }

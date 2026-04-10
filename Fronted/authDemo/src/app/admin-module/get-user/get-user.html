@@ -30,8 +30,7 @@
             </td>
             <td>{{user.phoneNum}}</td>
             <td>
-              <span 
-                class="badge px-3 py-2"
+              <span class="badge px-3 py-2"
                 [ngClass]="{
                   'bg-success': user.status === 'ACTIVE',
                   'bg-danger': user.status === 'INACTIVE'
@@ -74,7 +73,6 @@
           <div class="mb-3">
             <label>Role</label>
             <select class="form-select" formControlName="role">
-              <option value="ADMIN">ADMIN</option>
               <option value="DONOR">DONOR</option>
               <option value="HOSPITAL">HOSPITAL</option>
               <option value="USER">USER</option>

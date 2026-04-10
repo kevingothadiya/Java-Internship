@@ -23,7 +23,7 @@ public class SwaggerConfig {
         myContact.setEmail("kevingothadiya1305@gmail.com");
 
         Info information = new Info()
-                .title("Blood Management System API")
+                .title("Admin Service")
                 .version("1.0")
                 .description("This API exposes endpoints to manage employees.")
                 .contact(myContact);

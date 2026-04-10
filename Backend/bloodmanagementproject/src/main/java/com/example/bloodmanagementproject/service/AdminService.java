@@ -5,6 +5,7 @@ import com.example.bloodmanagementproject.proxy.BloodStockProxy;
 import com.example.bloodmanagementproject.proxy.DonationProxy;
 import com.example.bloodmanagementproject.proxy.UserProxy;
 import jakarta.transaction.Transactional;
+import org.springframework.data.jpa.repository.Modifying;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public interface AdminService {
     List<DonationProxy> getDonationDetails();
 
     @Transactional
+    @Modifying
     String deleteUser(Long id);
 
     Users updateUser(Long id, UserProxy userProxy);

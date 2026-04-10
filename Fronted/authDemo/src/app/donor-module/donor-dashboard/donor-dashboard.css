@@ -1,0 +1,39 @@
+#wrapper {
+  display: flex;
+  width: 100%;
+}
+
+#sidebar-wrapper {
+  min-width: 150px;  /* medium size */
+  max-width: 150px;
+  transition: all 0.3s;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  margin-left: -150px;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  padding: 0;
+}
+
+.list-group-item.active {
+  background-color: #dc3545 !important;
+  color: white;
+}
+
+.list-group-item:hover {
+  background-color: #f8d7da;
+  color: #dc3545;
+}
+
+.sidebar-heading {
+  font-size: 1.1rem;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+  font-size: 0.9rem;
+}

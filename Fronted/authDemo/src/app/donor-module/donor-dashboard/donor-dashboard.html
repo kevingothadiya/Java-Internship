@@ -1,1 +1,48 @@
-<p>donor-dashboard works!</p>
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-light border-end" id="sidebar-wrapper">
+    <div class="sidebar-heading text-center py-3 bg-danger text-white">
+      <h5>Donor</h5>
+    </div>
+    <div class="list-group list-group-flush">
+
+      <a routerLink="/donor" routerLinkActive="active" class="list-group-item list-group-item-action p-2 d-flex align-items-center">
+        <i class="bi bi-house-door-fill"></i>
+        <span class="ms-2 d-none d-md-inline">Home</span>
+      </a>
+
+      <a routerLink="/donor/donation-request" routerLinkActive="active" class="list-group-item list-group-item-action p-2 d-flex align-items-center">
+        <i class="bi bi-clock-history"></i>
+        <span class="ms-2 d-none d-md-inline">Donate Blood</span>
+      </a>
+
+      <a routerLink="/donor/donor-history" routerLinkActive="active" class="list-group-item list-group-item-action p-2 d-flex align-items-center">
+        <i class="bi bi-clock-history"></i>
+        <span class="ms-2 d-none d-md-inline">History</span>
+      </a>
+
+      <a routerLink="/donor/donor-profile" routerLinkActive="active" class="list-group-item list-group-item-action p-2 d-flex align-items-center">
+        <i class="bi bi-person-circle"></i>
+        <span class="ms-2 d-none d-md-inline">Profile</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="flex-grow-1 p-4">
+    
+    <!-- Default Home Content -->
+    <div *ngIf="isHomeVisible">
+      <div class="text-center mt-5">
+        <h2>Welcome to Donor Dashboard</h2>
+        <p class="text-muted">Your home content goes here when no sidebar item is clicked.</p>
+      </div>
+    </div>
+
+    <!-- Routed Content -->
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+  </div>
+
+</div>

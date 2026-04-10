@@ -124,7 +124,7 @@ public class AdminServiceImpl implements AdminService {
 
             if(requiredUnits<unitsAvailable && !bloodRequest.getStatus().equalsIgnoreCase("approve")){
                 bloodStock.setUnitsAvailable(unitsAvailable - requiredUnits);
-                bloodRequest.setStatus("Approve");
+                bloodRequest.setStatus("Approved");
                 bloodStock.setLastUpdated(LocalDateTime.now());
                 bloodStockRepo.save(bloodStock);
                 bloodRequestRepo.save(bloodRequest);

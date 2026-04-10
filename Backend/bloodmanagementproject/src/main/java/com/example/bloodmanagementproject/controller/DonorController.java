@@ -1,6 +1,8 @@
 package com.example.bloodmanagementproject.controller;
 
 import com.example.bloodmanagementproject.model.DonationDetailsHistory;
+import com.example.bloodmanagementproject.model.DonorDetailsResponse;
+import com.example.bloodmanagementproject.model.DonorProfileResponse;
 import com.example.bloodmanagementproject.proxy.DonationProxy;
 import com.example.bloodmanagementproject.proxy.DonorDetailsProxy;
 import com.example.bloodmanagementproject.service.DonorService;
@@ -21,8 +23,14 @@ public class DonorController {
     private DonorService donorService;
 
     @GetMapping("/profile")
-    public ResponseEntity<List<DonorDetailsProxy>> getDonorDetails(){
+    public ResponseEntity<List<DonorDetailsResponse>> getDonorDetails(){
         return new ResponseEntity<>(donorService.getDonorDetails(), HttpStatus.OK);
+    }
+
+    @GetMapping("/profile/user/{userId}")
+    public ResponseEntity<DonorProfileResponse> getDonorByUserId(@PathVariable Long userId){
+        DonorProfileResponse profile = donorService.getDonorProfileByUserId(userId);
+        return ResponseEntity.ok(profile);
     }
 
     @PutMapping("/profile")

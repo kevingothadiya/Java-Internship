@@ -39,15 +39,64 @@ export class Login {
         
       this.myStorageService.setItem('authToken',res.token)
       this.myStorageService.setItem('role',res.role)
+      this.myStorageService.setItem('userId', res.id);
+
       alert('Login Successful');
+
+      const userId = this.myStorageService.getUserId();
       const role = this.myStorageService.getUserRole();
-          if (role === 'ADMIN') {
+
+          if (role === 'ADMIN') 
+          {
             this.myRouter.navigate(['/admin']);
-          } else if (role === 'DONOR') {
-            this.myRouter.navigate(['/donor']);
-          } else if (role === 'HOSPITAL') {
-            this.myRouter.navigate(['/hospital']);
-          } else {
+          } 
+          else if (role === 'DONOR') 
+          {
+            if (userId !== null) {
+            this.myService.getDonorByUserId(userId).subscribe({
+              next: (res) => {
+                localStorage.setItem('donorId',res.id)
+                this.myRouter.navigate(['/donor']);
+              },
+              error: (err) => {
+                if (err.status === 404) {
+                  this.myRouter.navigate(['/donor-registration']);
+                }
+                else {
+                  alert('Something went wrong while checking donor profile');
+                }
+              }
+            });
+          } 
+          else {
+            alert('User ID not found. Please login again.');
+            this.myRouter.navigate(['/login']);
+          }
+          } 
+          else if (role === 'HOSPITAL') 
+          {
+            if(userId !== null){
+              this.myService.getHospitalByUserId(userId).subscribe({
+                next:(res)=>{
+                  localStorage.setItem('hospitalId',res.id);
+                  this.myRouter.navigate(['/hospital']);
+                },
+                error:(err)=>{
+                  if(err.status===404){
+                    this.myRouter.navigate(['/hospital-register'])
+                  }
+                  else {
+                    alert('Something went wrong while checking hospital profile');
+                  }
+                }
+              });
+            }
+            else {
+              alert('User ID not found. Please login again.');
+              this.myRouter.navigate(['/login']);
+            }
+          } 
+          else {
             this.myRouter.navigate(['/user']);
           }
       

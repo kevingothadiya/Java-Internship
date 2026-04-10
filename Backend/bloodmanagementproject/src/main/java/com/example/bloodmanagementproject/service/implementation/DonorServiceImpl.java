@@ -6,6 +6,8 @@ import com.example.bloodmanagementproject.domain.DonorDetails;
 import com.example.bloodmanagementproject.domain.Users;
 import com.example.bloodmanagementproject.helper.MapperHelper;
 import com.example.bloodmanagementproject.model.DonationDetailsHistory;
+import com.example.bloodmanagementproject.model.DonorDetailsResponse;
+import com.example.bloodmanagementproject.model.DonorProfileResponse;
 import com.example.bloodmanagementproject.proxy.DonationProxy;
 import com.example.bloodmanagementproject.proxy.DonorDetailsProxy;
 import com.example.bloodmanagementproject.repository.DonationRepo;
@@ -37,40 +39,77 @@ public class DonorServiceImpl implements DonorService {
     private UserRepo userRepo;
 
     @Override
-    public List<DonorDetailsProxy> getDonorDetails() {
-        if(donorDetailsRepo.findAll().isEmpty()){
-            throw new NoDonorFoundException("No Donor Details Found",HttpStatus.NOT_FOUND.value());
+    public List<DonorDetailsResponse> getDonorDetails() {
+        List<DonorDetails> donors = donorDetailsRepo.findAll();
+
+        if (donors.isEmpty()) {
+            throw new NoDonorFoundException("No Donor Details Found", HttpStatus.NOT_FOUND.value());
         }
-        return donorDetailsRepo.findAll().stream()
-                .map(donor->helper.map(donor, DonorDetailsProxy.class))
-                .toList();
+
+        return donors.stream().map(donor -> {
+            DonorDetailsResponse dto = new DonorDetailsResponse();
+            dto.setId(donor.getId());
+            dto.setBloodGrp(donor.getBloodGrp());
+            dto.setAge(donor.getAge());
+            dto.setGender(donor.getGender());
+            dto.setCity(donor.getCity());
+            dto.setLastDonationDate(donor.getLastDonationDate());
+            dto.setAvailable(donor.getAvailable());
+            return dto;
+        }).toList();
+    }
+
+    @Override
+    public DonorProfileResponse getDonorProfileByUserId(Long userId) {
+        Users user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        DonorDetails donor = donorDetailsRepo.findByUsers(user)
+                .orElseThrow(() -> new NoDonorFoundException("Donor not registered", 404));
+
+        DonorProfileResponse response = new DonorProfileResponse();
+        response.setId(donor.getId());
+        response.setBloodGrp(donor.getBloodGrp());
+        response.setAge(donor.getAge());
+        response.setGender(donor.getGender());
+        response.setCity(donor.getCity());
+        response.setLastDonationDate(donor.getLastDonationDate());
+        response.setAvailable(donor.getAvailable());
+
+        response.setName(user.getName());
+        response.setPhoneNum(user.getPhoneNum());
+        response.setEmail(user.getEmail());
+
+        return response;
     }
 
     @Override
     public String updateDonorDetails(DonorDetailsProxy donorDetailsProxy) {
 
-        Optional<Users> byId = userRepo.findById(donorDetailsProxy.getUsers().getId());
+        // Fetch the managed User entity
+        Long userId = donorDetailsProxy.getUsers().getId();
+        Users managedUser = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-        if(byId.get().getRole().equalsIgnoreCase("DONOR")) {
-
-            Optional<DonorDetails> byUsers = donorDetailsRepo.findByUsers(byId.get());
-            DonorDetails donor = helper.map(donorDetailsProxy, DonorDetails.class);
-            DonorDetails save = new DonorDetails();
-
-            if (byUsers.isPresent()) {
-                DonorDetails donorDetails = byUsers.get();
-                donor.setId(donorDetails.getId());
-                donor.setUsers(helper.map(donorDetailsProxy.getUsers(), Users.class));
-                save = donorDetailsRepo.save(donor);
-            }
-            else {
-                save = donorDetailsRepo.save(helper.map(donorDetailsProxy, DonorDetails.class));
-            }
-            return helper.map(save, DonorDetailsProxy.class).toString();
+        // Only donors can update donor details
+        if (!"DONOR".equalsIgnoreCase(managedUser.getRole())) {
+            throw new RuntimeException("User does not have role DONOR");
         }
-        else {
-            throw new RuntimeException("You can pass User has not Role Donor");
+
+        Optional<DonorDetails> optionalDonor = donorDetailsRepo.findByUsers(managedUser);
+        DonorDetails donor = helper.map(donorDetailsProxy, DonorDetails.class);
+        donor.setUsers(managedUser); // set managed user entity
+
+        DonorDetails savedDonor;
+        if (optionalDonor.isPresent()) {
+            donor.setId(optionalDonor.get().getId()); // keep existing ID
+            savedDonor = donorDetailsRepo.save(donor);
+        } else {
+            savedDonor = donorDetailsRepo.save(donor); // new donor record
         }
+
+        helper.map(savedDonor, DonorDetailsProxy.class);
+        return "Donor Update Successfully";
     }
 
     @Override

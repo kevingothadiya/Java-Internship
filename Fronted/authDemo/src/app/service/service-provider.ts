@@ -54,4 +54,40 @@ export class ServiceProvider {
   approveDonationRequest(id:number):Observable<any>{
     return this.http.put(this.baseUrl+"/admin/donor/"+id+"/approve",{responseType:'text'});
   }
+
+  getDonorByUserId(userId:number):Observable<any>{
+    return this.http.get(this.baseUrl+"/donor/profile/user/"+userId);
+  }
+
+  registerDonor(donorData: any):Observable<any> {
+    return this.http.put(this.baseUrl+'/donor/profile', donorData,{responseType:'text'});
+  }
+
+  getDonationDetailsById(userId:number):Observable<any>{
+    return this.http.get(this.baseUrl+'/donor/history/'+userId);
+  }
+
+  getDonorProfileByUserId(userId:number):Observable<any>{
+    return this.http.get(this.baseUrl+'/donor/profile/user/'+userId)
+  }
+
+  donateBlood(data:any):Observable<any>{
+    return this.http.post(this.baseUrl+'/donor/donate',data,{responseType:'text'})
+  }
+
+  getHospitalByUserId(userId:any):Observable<any>{
+    return this.http.get(this.baseUrl+'/hospital/profile/'+userId);
+  }
+
+  registerHospital(data:any):Observable<any>{
+    return this.http.post(this.baseUrl+'/hospital/add',data,{responseType:'text'})
+  }
+
+  getBloodRequestHistory(hospitalId:number):Observable<any>{
+    return this.http.get(this.baseUrl+'/hospital/request/history/'+hospitalId);
+  }
+
+  generateRequestForBlood(data:any):Observable<any>{
+    return this.http.post(this.baseUrl+'/hospital/request',data,{responseType:'text'})
+  }
 }

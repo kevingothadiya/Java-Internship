@@ -17,7 +17,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (!token || storage.isTokenExpired(token)) {
     // Token expired or missing
-    storage.removeItem('authToken');
+    storage.removeAllItem();
     alert('Your Token expired ! Please Login again')
     route.navigate(['/login']);
     return throwError(() => new Error('Token expired. Logging out.'));

@@ -1,11 +1,15 @@
 package com.example.bloodmanagementproject.service.implementation;
 
+import com.example.bloodmanagementproject.custom.exception.NoDonorFoundException;
+import com.example.bloodmanagementproject.custom.exception.NoHospitalFoundException;
+import com.example.bloodmanagementproject.custom.exception.NoSufficientBloodAvailable;
 import com.example.bloodmanagementproject.domain.BloodRequest;
 import com.example.bloodmanagementproject.domain.BloodStock;
 import com.example.bloodmanagementproject.domain.Hospital;
 import com.example.bloodmanagementproject.domain.Users;
 import com.example.bloodmanagementproject.helper.MapperHelper;
 import com.example.bloodmanagementproject.model.HospitalBloodRequestHistory;
+import com.example.bloodmanagementproject.model.HospitalProfileResponse;
 import com.example.bloodmanagementproject.proxy.BloodRequestProxy;
 import com.example.bloodmanagementproject.proxy.HospitalProxy;
 import com.example.bloodmanagementproject.repository.BloodRequestRepo;
@@ -46,7 +50,8 @@ public class HospitalServiceImpl implements HospitalService {
 
         if(byId.get().getRole().equalsIgnoreCase("HOSPITAL")){
             hospitalProxy.setUsers(byId.get());
-            return hospitalRepo.save(helper.getHospitalDomain(hospitalProxy)).toString();
+            hospitalRepo.save(helper.getHospitalDomain(hospitalProxy));
+            return "Hospital Create Successfully";
         }
         else {
             throw new RuntimeException("You can pass User has Not Role Hospital");
@@ -79,10 +84,12 @@ public class HospitalServiceImpl implements HospitalService {
             bloodRequest.setStatus("Pending");
             bloodRequest.setRequestDate(LocalDate.now());
             bloodRequest.setHospital(hospital);
-            return bloodRequestRepo.save(bloodRequest).toString();
+            bloodRequestRepo.save(bloodRequest);
+
+            return "Blood Request Send Successfully";
         }
         else {
-            throw new RuntimeException("No Sufficient blood available");
+            throw new NoSufficientBloodAvailable("No Sufficient blood available",404);
         }
     }
 
@@ -113,5 +120,30 @@ public class HospitalServiceImpl implements HospitalService {
         else {
             throw new RuntimeException("No Blood Request Found");
         }
+    }
+
+    @Override
+    public HospitalProfileResponse getHospitalByUserId(Long userId) {
+
+        Users user = userRepo.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Hospital hospital = hospitalRepo.findByUsers(user)
+                .orElseThrow(() -> new NoHospitalFoundException("Donor not registered", 404));
+
+        HospitalProfileResponse response = new HospitalProfileResponse();
+
+        response.setId(hospital.getId());
+        response.setHospitalName(hospital.getHospitalName());
+        response.setAddress(hospital.getAddress());
+        response.setContactNum(hospital.getContactNum());
+        response.setLicenceNumber(hospital.getLicenceNumber());
+
+        // User details
+        response.setName(user.getName());
+        response.setPhoneNum(user.getPhoneNum());
+        response.setEmail(user.getEmail());
+
+        return response;
     }
 }
