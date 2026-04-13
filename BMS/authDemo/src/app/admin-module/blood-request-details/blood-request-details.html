@@ -6,7 +6,6 @@
       <table class="table align-middle">
         <thead class="table-light">
           <tr>
-            <th>Id</th>
             <th>Blood Group</th>
             <th>Quantity (Units)</th>
             <th>Request Date</th>
@@ -17,7 +16,6 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of requests">
-            <td>{{ r.id }}</td>
             <td><span class="badge bg-danger px-3">{{ r.bloodGrp }}</span></td>
             <td>{{ r.quantity }}</td>
             <td>{{ r.requestDate }}</td>

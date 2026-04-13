@@ -25,8 +25,8 @@ export class BloodRequestDetails implements OnInit {
     this.myService.getBloodRequestsPaged(this.currentPage, this.pageSize).subscribe({
       next: (resp) => {
         this.requests = resp.content;
-        this.totalElements = resp.totalElements;
-        this.totalPages = resp.totalPages;
+        this.totalElements = resp.page?.totalElements ?? resp.totalElements ?? 0;
+        this.totalPages = resp.page?.totalPages ?? resp.totalPages ?? 0;
         this.cdr.detectChanges();
       },
       error: (err) => console.error(err)

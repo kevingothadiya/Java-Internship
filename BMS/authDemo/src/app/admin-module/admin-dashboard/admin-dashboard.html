@@ -31,6 +31,12 @@
         <span class="ms-2 d-none d-md-inline">Blood Requests</span>
       </a>
 
+      <a routerLink="/admin/blood-stock" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-droplet-half"></i>
+        <span class="ms-2 d-none d-md-inline">Blood Stock</span>
+      </a>
+
       <a routerLink="/admin/reports" routerLinkActive="active"
         class="list-group-item list-group-item-action p-3 d-flex align-items-center">
         <i class="bi bi-file-earmark-arrow-down-fill"></i>
@@ -78,6 +84,17 @@
             <p class="text-muted small">Approve or reject hospital blood requests.</p>
             <button class="btn btn-warning mt-auto w-100 fw-semibold" routerLink="/admin/blood-requests">
               View Requests
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+            <i class="bi bi-droplet-half fs-1 text-info mb-3"></i>
+            <h5 class="fw-semibold">Blood Stock</h5>
+            <p class="text-muted small">Monitor current blood stock levels by group.</p>
+            <button class="btn btn-info mt-auto w-100 fw-semibold text-white" routerLink="/admin/blood-stock">
+              View Stock
             </button>
           </div>
         </div>

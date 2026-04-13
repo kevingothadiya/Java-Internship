@@ -6,7 +6,6 @@
       <table class="table align-middle">
         <thead class="table-light">
           <tr>
-            <th>Id</th>
             <th>Donation Date</th>
             <th>Quantity</th>
             <th>Remark</th>
@@ -14,8 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let d of donations">
-            <td>{{ d.id }}</td>
+          <tr *ngFor="let d of donations">  
             <td>{{ d.donationDate }}</td>
             <td>{{ d.quantity }}</td>
             <td>

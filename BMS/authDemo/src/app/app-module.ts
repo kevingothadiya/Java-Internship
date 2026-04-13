@@ -28,6 +28,7 @@ import { HospitalProfile } from './hospital-module/hospital-profile/hospital-pro
 import { RequestBlood } from './hospital-module/request-blood/request-blood';
 import { ResetPassword } from './reset-password/reset-password';
 import { BloodRequestDetails } from './admin-module/blood-request-details/blood-request-details';
+import { BloodStockDetails } from './admin-module/blood-stock-details/blood-stock-details';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { BloodRequestDetails } from './admin-module/blood-request-details/blood-
     RequestBlood,
     ResetPassword,
     BloodRequestDetails,
+    BloodStockDetails,
   ],
   imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, FormsModule],
   providers: [

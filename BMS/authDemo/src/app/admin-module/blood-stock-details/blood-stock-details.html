@@ -1,0 +1,81 @@
+<div class="container mt-4">
+  <div class="card shadow border-0 p-4">
+
+    <div class="d-flex align-items-center justify-content-between mb-4">
+      <h4 class="fw-bold text-danger mb-0">Blood Stock Details</h4>
+      <button class="btn btn-outline-danger btn-sm" (click)="loadBloodStock()">
+        <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+      </button>
+    </div>
+
+    <!-- Loading -->
+    <div *ngIf="loading" class="text-center py-5">
+      <div class="spinner-border text-danger"></div>
+      <p class="text-muted mt-2">Loading blood stock...</p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div *ngIf="!loading" class="row g-3">
+      <div class="col-6 col-md-4 col-lg-3" *ngFor="let stock of bloodStocks">
+        <div class="card border-0 shadow-sm text-center p-3 stock-card h-100">
+
+          <!-- Blood Group Badge -->
+          <div class="blood-group-circle mx-auto mb-2">
+            {{ stock.bloodGrp }}
+          </div>
+
+          <!-- Units -->
+          <h4 class="fw-bold mb-0">{{ stock.unitsAvailable }}</h4>
+          <small class="text-muted">Units Available</small>
+
+          <!-- Status Badge -->
+          <div class="mt-2">
+            <span class="badge px-3 py-1" [ngClass]="getStockBadgeClass(stock.unitsAvailable)">
+              {{ getStockLabel(stock.unitsAvailable) }}
+            </span>
+          </div>
+
+          <!-- Last Updated -->
+          <div class="mt-2 text-muted" style="font-size: 0.72rem;">
+            <i class="bi bi-clock me-1"></i>
+            {{ stock.lastUpdated | date:'dd MMM yyyy, hh:mm a' }}
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div *ngIf="bloodStocks.length === 0" class="col-12 text-center py-5 text-muted">
+        <i class="bi bi-droplet fs-1"></i>
+        <p class="mt-2">No blood stock records found.</p>
+      </div>
+    </div>
+
+    <!-- Summary Row -->
+    <div *ngIf="!loading && bloodStocks.length > 0" class="row g-3 mt-2 border-top pt-3">
+      <div class="col-6 col-md-3 text-center">
+        <div class="fw-bold fs-5 text-success">{{ bloodStocks.length }}</div>
+        <small class="text-muted">Blood Groups</small>
+      </div>
+      <div class="col-6 col-md-3 text-center">
+        <div class="fw-bold fs-5 text-primary">
+          {{ getTotalUnits() }}
+        </div>
+        <small class="text-muted">Total Units</small>
+      </div>
+      <div class="col-6 col-md-3 text-center">
+        <div class="fw-bold fs-5 text-danger">
+          {{ getCriticalCount() }}
+        </div>
+        <small class="text-muted">Critical / Empty</small>
+      </div>
+      <div class="col-6 col-md-3 text-center">
+        <div class="fw-bold fs-5 text-success">
+          {{ getNormalCount() }}
+        </div>
+        <small class="text-muted">Sufficient Stock</small>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -91,6 +91,10 @@ export class ServiceProvider {
     return this.http.get(this.baseUrl+"/admin/donation")
   }
 
+  getBloodStock():Observable<any>{
+    return this.http.get(this.baseUrl+"/admin/blood-stock");
+  }
+
   approveDonationRequest(id:number):Observable<any>{
     return this.http.put(this.baseUrl+"/admin/donor/"+id+"/approve",{responseType:'text'});
   }
@@ -145,6 +149,10 @@ export class ServiceProvider {
 
   getBloodRequestHistory(hospitalId:number):Observable<any>{
     return this.http.get(this.baseUrl+'/hospital/request/history/'+hospitalId);
+  }
+
+  getBloodRequestHistoryPaged(hospitalId:number, page:number, size:number):Observable<any>{
+    return this.http.get(this.baseUrl+`/hospital/request/history/${hospitalId}/paged?page=${page}&size=${size}`);
   }
 
   generateRequestForBlood(data:any):Observable<any>{
