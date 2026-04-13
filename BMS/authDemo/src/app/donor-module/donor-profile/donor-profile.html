@@ -1,0 +1,20 @@
+<div class="container mt-4">
+  <div *ngIf="donorDetails">
+    <h3 class="mb-3 text-danger">My Profile</h3>
+    <ul class="list-group">
+      <!-- User Info -->
+      <li class="list-group-item"><strong>Name:</strong> {{ donorDetails.name }}</li>
+      <li class="list-group-item"><strong>Phone Number:</strong> {{ donorDetails.phoneNum }}</li>
+      <li class="list-group-item"><strong>Email Id:</strong> {{ donorDetails.email }}</li>
+
+      <!-- Donor Info -->
+      <li class="list-group-item"><strong>Blood Group:</strong> {{ donorDetails.bloodGrp }}</li>
+      <li class="list-group-item"><strong>Age:</strong> {{ donorDetails.age }}</li>
+      <li class="list-group-item"><strong>Gender:</strong> {{ donorDetails.gender }}</li>
+      <li class="list-group-item"><strong>City:</strong> {{ donorDetails.city }}</li>
+      <li class="list-group-item"><strong>Last Donation Date:</strong> {{ donorDetails.lastDonationDate}}</li>
+      <li class="list-group-item"><strong>Available to Donate:</strong> {{ donorDetails.available ? 'Yes' : 'No' }}</li>
+    </ul>
+  </div>
+</div>
+

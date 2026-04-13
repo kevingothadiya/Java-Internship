@@ -1,0 +1,87 @@
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-light border-end" id="sidebar-wrapper">
+    <div class="sidebar-heading text-center py-3 bg-danger text-white">
+      <h5 class="mb-0">Hospital</h5>
+    </div>
+    <div class="list-group list-group-flush">
+
+      <a routerLink="/hospital" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-house-door-fill"></i>
+        <span class="ms-2 d-none d-md-inline">Home</span>
+      </a>
+
+      <a routerLink="/hospital/request-blood" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-droplet-fill"></i>
+        <span class="ms-2 d-none d-md-inline">Request Blood</span>
+      </a>
+
+      <a routerLink="/hospital/blood-request-history" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-clock-history"></i>
+        <span class="ms-2 d-none d-md-inline">History</span>
+      </a>
+
+      <a routerLink="/hospital/profile" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-hospital-fill"></i>
+        <span class="ms-2 d-none d-md-inline">Profile</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="flex-grow-1 p-4">
+
+    <!-- Default Home Content -->
+    <div *ngIf="isHomeVisible">
+      <h4 class="fw-bold text-danger mb-4">Hospital Dashboard</h4>
+
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+            <i class="bi bi-droplet-fill fs-1 text-danger mb-3"></i>
+            <h5 class="fw-semibold">Request Blood</h5>
+            <p class="text-muted small">Submit a new blood request for your hospital.</p>
+            <button class="btn btn-danger mt-auto w-100 fw-semibold" routerLink="/hospital/request-blood">
+              Request Now
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+            <i class="bi bi-clock-history fs-1 text-primary mb-3"></i>
+            <h5 class="fw-semibold">Request History</h5>
+            <p class="text-muted small">Track the status of your blood requests.</p>
+            <button class="btn btn-primary mt-auto w-100 fw-semibold" routerLink="/hospital/blood-request-history">
+              View History
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+            <i class="bi bi-hospital-fill fs-1 text-success mb-3"></i>
+            <h5 class="fw-semibold">Hospital Profile</h5>
+            <p class="text-muted small">View and manage your hospital information.</p>
+            <button class="btn btn-success mt-auto w-100 fw-semibold" routerLink="/hospital/profile">
+              View Profile
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Routed Child Content -->
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+
+  </div>
+
+</div>

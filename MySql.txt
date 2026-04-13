@@ -1,0 +1,299 @@
+
+
+Following are the five DDL commands in SQL:
+
+CREATE Command
+DROP Command
+ALTER Command
+TRUNCATE Command
+RENAME Command
+
+
+# DATA BASE Related :
+  SHOW DATABASE;
+  CREATE DATABASE student;
+  USE student;
+  DROP DATABASE student;
+  RENAME DATABASE student to studentdbms;// MySQL 5.x 
+
+
+# TABLE Related DDL:
+
+  -CREATE TABLE: CREATE TABLE login (emp_id INT, emp_password VARCHAR(100), DOB DATE, Address VARCHAR(200));
+  -DESCRIPTION of TABLE: DESC login; // SHOW COLUMNS FROM login; // SHOW FULL COLUMNS FROM login;
+
+  -CREATE TABLE USING OTHER TABLE: CREATE TABLE login2 AS SELECT * FROM login;
+  -CREATE TABLE WITH KEY: CREATE TABLE login (emp_id INT AUTO_INCREMENT PRIMARY KEY, emp_name varchar(100), emp_password varchar(200));
+  -DROP or TRUNCATE TABLE: DROP TABLE login3 or TRUNCATE TABLE login3 
+
+
+  -RENAME TABLE: ALTER TABLE login2 RENAME TO login5;
+  -RENAME TABLE COLUMN: ALTER TABLE login2 RENAME COLUMN emp_id TO emp_userid;
+
+  -ADD NEW COLUMN: ALTER TABLE login2 ADD emp_pincode varchar(10);
+  -ADD NEW COLUMN AFTER Specified COLUMN: ALTER TABLE login2 ADD emp_address varchar(200) NOT NULL AFTER emp_name;
+  -DROP COLUMN : ALTER TABLE login2 DROP COLUMN emp_address;
+
+  -MODIFY COLUMN Definition: ALTER TABLE login2 MODIFY COLUMN emp_pincode INT(6);
+  -CHANGE COLUMN NAME with Definition: ALTER TABLE login2 CHANGE COLUMN emp_pincode emp_mobile INT(10);
+
+
+
+Example:
+
+  CREATE TABLE employee (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    age INT CHECK (age >= 18),
+    status VARCHAR(20) DEFAULT 'ACTIVE'
+);
+
+
+# TABLE Related DML:
+
+  - INSERT:
+  - DELETE:
+  - UPDATE:
+  - SELECT:
+
+
+
+  select std.name,std.dob,ed.10th,ed.12th,ed.graduation from student as std INNER JOIN education AS ed
+  ON std_id= ed.std_fk;
+
+
+
+
+Supported Types of Joins in MySQL
+
+INNER JOIN: Returns records that have matching values in both tables
+
+LEFT JOIN: Returns all records from the left table, and the matched records from the right table
+
+RIGHT JOIN: Returns all records from the right table, and the matched records from the left table
+
+CROSS JOIN: Returns all records from both tables
+
+
+
+
+# Stored Procedure :
+
+  1. Introduction: A stored procedure is a collection of pre-compiled SQL statements stored inside the database.
+    - A procedure always contains a name, parameter lists, and SQL statements | executed with a CALL statement
+
+  2. Stored Procedure Features:
+
+    * Improved Performance : Stored Procedure increases the performance of the applications. Once stored procedures are created, they are compiled and stored in the database.
+    * Reduced Traffic: Stored procedure reduces the traffic between application and database server.
+      Because the application has to send only the stored procedure's name and parameters instead of sending multiple SQL statements.
+    * Code Reusability : Stored procedures are reusable and transparent to any applications.
+    * Enhanced Security : A procedure is always secure. The database administrator can grant permissions
+      to applications that access stored procedures in the database without giving any permissions on the database tables.
+
+  2. Creation of SP
+
+    Syntax:
+
+    DELIMITER $$  
+
+    CREATE PROCEDURE procedure_name [[IN | OUT | INOUT] parameter_name datatype) ]    
+    BEGIN    
+      Declaration_section   
+      Executable_section 
+      select * from student;
+      select * from student where std_id=2;
+    END $$ 
+
+    DELIMITER ;   
+
+    #procedure_name - It represents the name of the stored procedure.
+    #parameter      - It represents the number of parameters. It can be one or more than one.
+    #Declaration_section -   It represents the declarations of all variables.
+    #Executable_section  -  It represents the code for the function execution.
+
+  3. Modes in Stored Procedure in MySQL
+
+    1. IN (Default Mode) - Input parameter- It takes a parameter as input, such as an attribute. 
+       When we define it, the calling program has to pass an argument to the stored procedure.
+
+    2. OUT - Output parameter- It is used to pass a parameter as output. Its value can be changed inside the 
+       stored procedure, and the changed (new) value is passed back to the calling program.
+
+    3. INOUT- It is a combination of IN and OUT parameters. It means the calling program can pass the argument, 
+       and the procedure can modify the INOUT parameter, and then passes the new value back to the calling program.
+
+  4. How to call a stored procedure?
+
+    Syntax: CALL procedure_name ( parameter(s))  
+
+  5. Call Stored Procedure from Springboot JPA:
+
+    1. Using @Procedure in Repository
+    2. Using @NamedStoredProcedureQuery or @NamedStoredProcedureQueries in Entity
+    3. Using native Query (@query) in Repository
+
+
+
+
+Examples:
+
+
+  1. Procedure without Parameter
+
+  CREATE PROCEDURE get_merit_student ()  
+  BEGIN  
+    SELECT * FROM student_info WHERE marks > 70;  
+    SELECT COUNT(stud_code) AS Total_Student FROM student_info;    
+  END
+
+  : mysql> CALL get_merit_student();  
+
+
+  2. Procedures with IN Parameter
+
+  CREATE PROCEDURE get_student (IN var1 INT)  
+  BEGIN  
+    SELECT * FROM student_info LIMIT var1;  
+    SELECT COUNT(stud_code) AS Total_Student FROM student_info;    
+  END
+
+  : mysql> CALL get_student(4);  
+
+
+  3. Procedures with OUT Parameter
+
+  CREATE PROCEDURE display_max_mark (OUT highestmark INT)  
+  BEGIN  
+    SELECT MAX(marks) INTO highestmark FROM student_info;   
+  END
+
+  : mysql> CALL display_max_mark(@M);  
+  : mysql> SELECT @M;  
+
+
+  4. Procedures with INOUT Parameter
+
+  CREATE PROCEDURE display_marks (INOUT var1 INT)  
+  BEGIN  
+    SELECT marks INTO var1 FROM student_info WHERE stud_id = var1;   
+  END 
+
+  : mysql> SET @M = 3;  --  -- Declare and Intialize a session variable to hold the output
+  : mysql> CALL display_marks(@M);   -- Call the procedure
+  : mysql> SELECT @M;  -- Show the result
+
+
+
+How to show or list stored procedures in MySQL?
+
+  : mysql> SHOW PROCEDURE STATUS WHERE db = 'customer';
+
+DROP PROCEDURE [ IF EXISTS ] procedure_name;
+
+  : DROP PROCEDURE display_marks;  
+
+
+// Resource- JavaTPoint
+
+
+
+CREATE PROCEDURE countEmployeeByPrefix
+(
+    IN namePrefix VARCHAR(50),
+    OUT totalCount INT
+)
+BEGIN
+    SELECT COUNT(*) INTO totalCount
+    FROM employees
+    WHERE emp_name LIKE CONCAT(namePrefix, '%');
+END
+
+
+Repo:
+
+   @Procedure(procedureName = "countEmployeeByPrefix")
+    Integer countEmployeeByPrefix(
+            @Param("namePrefix") String namePrefix
+    );
+
+
+
+DROP PROCEDURE IF EXISTS getAllEmployees $$
+
+CREATE PROCEDURE getAllEmployees()
+BEGIN
+    SELECT * FROM employees;
+END $$
+
+DELIMITER ;
+
+@Procedure(procedureName = "getAllEmployees")
+    List<Employee> getAllEmployees();
+
+
+@Query(value = "CALL getAllEmployees()", nativeQuery = true)
+    List<Employee> getAllEmployees();
+
+
+
+#Trigger:
+
+  - A trigger in MySQL is a stored program that automatically executes when a specific event
+    occurs on a table.
+  - Thease events are : INSERT, UPDATE, DELETE
+
+# Uses of Trigger:
+
+  - Audit logging
+  - Data Validation
+  - Maintaining history tables
+  - Automatically updating related roles
+  - Example: When a new employee is inserted -> Automatically store audit record in audit table
+
+# Types of Trigger and Their uses: MySQL Supports 6 types of triggers:
+
+  1. BEFORE INSERT - Validation
+  2. AFTER INSERT  - Logging
+  3. BEFORE UPDATE - Modify  Values
+  4. AFTER UPDATE  - Audit/History
+  5. BEFORE DELETE - Backup Record
+  6. AFTER DELETE  - Cleanup/Logging
+
+
+# Example:
+  - BEFORE INSERT: Validate data before saving- 
+    Prevent negative salary insertion
+    If new.salary <0 THEN
+    SET new.salary = 0;
+    END If;
+
+  - AFTER INSERT : Insert log entry after record creation
+    Store audit trail
+    INSERT INTO employee_log VALUES(...)
+
+  - BEFORE UPDATE: Modify values before update happens
+    Auto-update timestampe
+    SET new.update_at=NOW();
+
+  - AFTER UPDATE : Store Change history
+    Track old vs new values
+
+  - BEFORE DELETE: Backup Record before deletion
+    Move deleted record to archive table
+
+  - AFTER DELETE : Store deletion log
+    Maintain delete audit history
+
+
+
+# Show Triggers:
+  SHOW TRIGGERS;
+  SHOW TRIGGERS LIKE 'employee';
+  SHOW CREATE TRIGGER befor_emp_insert; <---- Show trigger Structure
+
+# DROP Trigger:
+  DROP TRIGGER trigger_name;
+
+ 

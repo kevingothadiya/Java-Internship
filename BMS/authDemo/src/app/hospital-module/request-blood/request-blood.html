@@ -1,0 +1,46 @@
+<div class="container mt-5">
+
+  <div class="card shadow-lg border-0 p-4">
+
+    <h4 class="mb-4 fw-bold text-primary">Generate Blood Request</h4>
+
+    <form (ngSubmit)="submitRequest(requestForm)" #requestForm="ngForm">
+
+      <!-- Blood Group -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Blood Group</label>
+        <select class="form-select"
+                name="bloodGrp"
+                [(ngModel)]="request.bloodGrp"
+                required>
+          <option value="">Select Blood Group</option>
+          <option *ngFor="let bg of bloodGroups" [value]="bg">
+            {{bg}}
+          </option>
+        </select>
+      </div>
+
+      <!-- Quantity -->
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Quantity (Units)</label>
+        <input type="number"
+               class="form-control"
+               name="quantity"
+               [(ngModel)]="request.quantity"
+               required
+               min="1"
+               placeholder="Enter units">
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit"
+              class="btn btn-danger w-100"
+              [disabled]="requestForm.invalid">
+        Send Request
+      </button>
+
+    </form>
+
+  </div>
+
+</div>

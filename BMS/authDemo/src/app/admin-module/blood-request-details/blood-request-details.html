@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <div class="card shadow border-0 p-4">
+    <h4 class="mb-4 fw-bold text-danger">Blood Requests</h4>
+
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Id</th>
+            <th>Blood Group</th>
+            <th>Quantity (Units)</th>
+            <th>Request Date</th>
+            <th>Hospital</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of requests">
+            <td>{{ r.id }}</td>
+            <td><span class="badge bg-danger px-3">{{ r.bloodGrp }}</span></td>
+            <td>{{ r.quantity }}</td>
+            <td>{{ r.requestDate }}</td>
+            <td>{{ r.hospitalName || '—' }}</td>
+            <td>
+              <span class="badge px-3 py-2"
+                [ngClass]="{
+                  'bg-success':  r.status === 'Approved',
+                  'bg-danger':   r.status === 'Rejected',
+                  'bg-warning text-dark': r.status === 'Pending'
+                }">{{ r.status }}</span>
+            </td>
+            <td>
+              <button class="btn btn-success btn-sm me-2"
+                [disabled]="r.status === 'Approved' || r.status === 'Rejected'"
+                (click)="approve(r.id)">Approve</button>
+              <button class="btn btn-danger btn-sm"
+                [disabled]="r.status === 'Approved' || r.status === 'Rejected'"
+                (click)="reject(r.id)">Reject</button>
+            </td>
+          </tr>
+          <tr *ngIf="requests.length === 0">
+            <td colspan="7" class="text-center text-muted py-4">No blood requests found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-3">
+      <div class="d-flex align-items-center gap-2 text-muted small">
+        <span>Showing {{ showingFrom }} to {{ showingTo }} of {{ totalElements }} rows</span>
+        <select class="form-select form-select-sm" style="width:75px" [value]="pageSize" (change)="onPageSizeChange($event)">
+          <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>
+        </select>
+      </div>
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item" [class.disabled]="currentPage === 0"><a class="page-link" (click)="goToPage(0)">&laquo;&laquo;</a></li>
+          <li class="page-item" [class.disabled]="currentPage === 0"><a class="page-link" (click)="goToPage(currentPage-1)">&laquo;</a></li>
+          <li class="page-item" *ngFor="let p of pageNumbers" [class.active]="p === currentPage">
+            <a class="page-link" (click)="goToPage(p)">{{ p+1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages-1"><a class="page-link" (click)="goToPage(currentPage+1)">&raquo;</a></li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages-1"><a class="page-link" (click)="goToPage(totalPages-1)">&raquo;&raquo;</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

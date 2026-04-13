@@ -1,0 +1,50 @@
+<div class="container mt-5">
+
+  <div class="card shadow-lg border-0 p-4 table-card">
+
+    <h4 class="mb-4 fw-bold text-primary">Blood Request History</h4>
+
+    <div class="table-responsive">
+      <table class="table align-middle custom-table">
+        <thead>
+          <tr>
+            <th>Blood Group</th>
+            <th>Quantity</th>
+            <th>Request Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let req of hospitalBloodReqHistory">
+
+            <td>
+              <span class="badge bg-danger px-3 py-2">
+                {{req.bloodGrp}}
+              </span>
+            </td>
+
+            <td>{{req.quantity}} Units</td>
+
+            <td>{{req.requestDate | date:'mediumDate'}}</td>
+
+            <td>
+              <span class="badge px-3 py-2"
+                [ngClass]="{
+                  'bg-warning text-dark': req.status === 'Pending',
+                  'bg-success': req.status === 'Approved',
+                  'bg-danger': req.status === 'Rejected'
+                }">
+                {{req.status}}
+              </span>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+</div>

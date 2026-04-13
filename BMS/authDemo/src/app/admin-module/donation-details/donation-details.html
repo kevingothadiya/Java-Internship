@@ -1,0 +1,66 @@
+<div class="container mt-4">
+  <div class="card shadow border-0 p-4">
+    <h4 class="mb-4 fw-bold text-primary">Donation Requests</h4>
+
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>Id</th>
+            <th>Donation Date</th>
+            <th>Quantity</th>
+            <th>Remark</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let d of donations">
+            <td>{{ d.id }}</td>
+            <td>{{ d.donationDate }}</td>
+            <td>{{ d.quantity }}</td>
+            <td>
+              <span class="badge px-3 py-2"
+                [ngClass]="{
+                  'bg-success': d.remark === 'Approve',
+                  'bg-danger':  d.remark === 'Reject',
+                  'bg-warning text-dark': d.remark === 'Pending'
+                }">{{ d.remark }}</span>
+            </td>
+            <td>
+              <button class="btn btn-success btn-sm me-2"
+                [disabled]="d.remark === 'Approve' || d.remark === 'Reject'"
+                (click)="approve(d.id)">Approve</button>
+              <button class="btn btn-danger btn-sm"
+                [disabled]="d.remark === 'Approve' || d.remark === 'Reject'"
+                (click)="reject(d.id)">Reject</button>
+            </td>
+          </tr>
+          <tr *ngIf="donations.length === 0">
+            <td colspan="5" class="text-center text-muted py-4">No donation requests found.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-3">
+      <div class="d-flex align-items-center gap-2 text-muted small">
+        <span>Showing {{ showingFrom }} to {{ showingTo }} of {{ totalElements }} rows</span>
+        <select class="form-select form-select-sm" style="width:75px" [value]="pageSize" (change)="onPageSizeChange($event)">
+          <option *ngFor="let opt of pageSizeOptions" [value]="opt">{{ opt }}</option>
+        </select>
+      </div>
+      <nav>
+        <ul class="pagination pagination-sm mb-0">
+          <li class="page-item" [class.disabled]="currentPage === 0"><a class="page-link" (click)="goToPage(0)">&laquo;&laquo;</a></li>
+          <li class="page-item" [class.disabled]="currentPage === 0"><a class="page-link" (click)="goToPage(currentPage-1)">&laquo;</a></li>
+          <li class="page-item" *ngFor="let p of pageNumbers" [class.active]="p === currentPage">
+            <a class="page-link" (click)="goToPage(p)">{{ p+1 }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages-1"><a class="page-link" (click)="goToPage(currentPage+1)">&raquo;</a></li>
+          <li class="page-item" [class.disabled]="currentPage === totalPages-1"><a class="page-link" (click)="goToPage(totalPages-1)">&raquo;&raquo;</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

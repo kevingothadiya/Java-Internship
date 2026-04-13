@@ -1,0 +1,87 @@
+<div class="d-flex" id="wrapper">
+
+  <!-- Sidebar -->
+  <div class="bg-light border-end" id="sidebar-wrapper">
+    <div class="sidebar-heading text-center py-3 bg-danger text-white">
+      <h5 class="mb-0">Donor</h5>
+    </div>
+    <div class="list-group list-group-flush">
+
+      <a routerLink="/donor" [routerLinkActiveOptions]="{exact:true}" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-house-door-fill"></i>
+        <span class="ms-2 d-none d-md-inline">Home</span>
+      </a>
+
+      <a routerLink="/donor/donation-request" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-droplet-fill"></i>
+        <span class="ms-2 d-none d-md-inline">Donate Blood</span>
+      </a>
+
+      <a routerLink="/donor/donor-history" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-clock-history"></i>
+        <span class="ms-2 d-none d-md-inline">History</span>
+      </a>
+
+      <a routerLink="/donor/donor-profile" routerLinkActive="active"
+        class="list-group-item list-group-item-action p-3 d-flex align-items-center">
+        <i class="bi bi-person-circle"></i>
+        <span class="ms-2 d-none d-md-inline">Profile</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Page Content -->
+  <div class="flex-grow-1 p-4">
+
+    <!-- Default Home Content -->
+    <div *ngIf="isHomeVisible">
+      <h4 class="fw-bold text-danger mb-4">Donor Dashboard</h4>
+
+      <div class="row g-4">
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+            <i class="bi bi-droplet-fill fs-1 text-danger mb-3"></i>
+            <h5 class="fw-semibold">Donate Blood</h5>
+            <p class="text-muted small">Submit a new blood donation request.</p>
+            <button class="btn btn-danger mt-auto w-100 fw-semibold" routerLink="/donor/donation-request">
+              Donate Now
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+            <i class="bi bi-clock-history fs-1 text-primary mb-3"></i>
+            <h5 class="fw-semibold">Donation History</h5>
+            <p class="text-muted small">View your past donation records and status.</p>
+            <button class="btn btn-primary mt-auto w-100 fw-semibold" routerLink="/donor/donor-history">
+              View History
+            </button>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+          <div class="card text-center p-4 h-100 border-0 shadow-sm dashboard-card">
+            <i class="bi bi-person-circle fs-1 text-success mb-3"></i>
+            <h5 class="fw-semibold">My Profile</h5>
+            <p class="text-muted small">View and update your donor profile details.</p>
+            <button class="btn btn-success mt-auto w-100 fw-semibold" routerLink="/donor/donor-profile">
+              View Profile
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Routed Child Content -->
+    <router-outlet (activate)="onActivate($event)"></router-outlet>
+
+  </div>
+
+</div>

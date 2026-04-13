@@ -1,0 +1,64 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+
+      <div class="card shadow">
+        <div class="card-body">
+
+          <h3 class="text-center text-primary mb-4">Hospital Registration</h3>
+
+          <form [formGroup]="hospitalForm" (ngSubmit)="onSubmit()">
+
+            <!-- Hospital Name -->
+            <div class="mb-3">
+              <label class="form-label">Hospital Name</label>
+              <input type="text" class="form-control" formControlName="hospitalName"
+                     [class.is-invalid]="formControl['hospitalName'].touched && formControl['hospitalName'].invalid">
+              <div class="invalid-feedback" *ngIf="formControl['hospitalName'].touched && formControl['hospitalName'].invalid">
+                Hospital name is required
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="mb-3">
+              <label class="form-label">Address</label>
+              <input type="text" class="form-control" formControlName="address"
+                     [class.is-invalid]="formControl['address'].touched && formControl['address'].invalid">
+              <div class="invalid-feedback" *ngIf="formControl['address'].touched && formControl['address'].invalid">
+                Address is required
+              </div>
+            </div>
+
+            <!-- Contact Number -->
+            <div class="mb-3">
+              <label class="form-label">Contact Number</label>
+              <input type="text" class="form-control" formControlName="contactNum"
+                     [class.is-invalid]="formControl['contactNum'].touched && formControl['contactNum'].invalid">
+              <div class="invalid-feedback" *ngIf="formControl['contactNum'].touched && formControl['contactNum'].invalid">
+                Enter valid 10 digit number
+              </div>
+            </div>
+
+            <!-- Licence Number -->
+            <div class="mb-3">
+              <label class="form-label">Licence Number</label>
+              <input type="text" class="form-control" formControlName="licenceNumber"
+                     [class.is-invalid]="formControl['licenceNumber'].touched && formControl['licenceNumber'].invalid">
+              <div class="invalid-feedback" *ngIf="formControl['licenceNumber'].touched && formControl['licenceNumber'].invalid">
+                Licence number is required
+              </div>
+            </div>
+
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary w-100" [disabled]="hospitalForm.invalid">
+              Register
+            </button>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+/* Active sidebar item → RED */
+.list-group-item.active {
+  background-color: #dc3545 !important; /* Bootstrap danger red */
+  border-color: #dc3545 !important;
+  color: #fff !important;
+}
+
+/* Optional: hover effect */
+.list-group-item:hover {
+  background-color: #f8d7da;
+}

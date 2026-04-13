@@ -1,0 +1,413 @@
+int a=10;
+int b=20;
+.......
+If we want to declare 10,000 variable-> then array is imporved version
+
+Student[] s=new Student[10000];
+
+->n number of problems in array|limitation of array
+1. Arrays are fixed in size (increasing or decreasing size is not allowed dynamically): We should know the size of array in advance
+2. Arrays can hold only homogeneous data elements-> you can't store the acc type element in student type array
+Student[] s=new Student[10000];
+s[0]=new Student(); // Valid
+s[1]=new Acc(); // Not valid
+
+Sol->
+Object[] s=new Object[10000];
+s[0]=new Student(); // Valid
+s[1]=new Acc(); // valid
+
+3. Array concept doesnot implemented in based some data structure: sorting is not possible etc. ->
+No underlying data structure| readymade methods are not available
+
+
+->To overcome the above limitations of array we should go for Collections:
+
+1. Collections are groable in nature, i.e. Based on our requirement we can increease or decrease the size.
+2. Collections can hold both homogeneous and Heterogeneous elements.
+3. Every Collection class is implemented based on some standard data structure, Hence readymade method support is available for every requirement.
+Being a programmer we have to use this method and we are not responsible to provide implementation.
+
+-> Differences between Array and Collections
+1. Performance wise arrays are best when u know the size in advance
+2. With respect to memory- collections is recommended (Arrays: if we fixed size 10,0000 and we store 1000 records , then remaining size will be wasted)
+3. By using array we can hold primitive, objects (int a[], Integer a[]) but collections hold only objects
+
+-> Collection: If we want to represent a group of individual objects as a single entity then we should go for collection.
+-> Collection Framework: Define several classes and interfaces which can be used a group of ojects as a single entity.
+
+-> Collections concept and Collection framework in Java but in C++ it is a container and STL(Standard Template Library)
+
+------------------------------------------------------------------------------------------------------------------------------
+-> Collection vs Collections: Collection is Interface but Collections is an utility class present in java.util.package to define several utility methods (like- Sorting, Searching etc.) for Collection objects.
+	ex- Collections.sort(arraylist obj)
+
+-> Collection (I)-> Collection interface defines the Most common methods which are applicable for any Collection object such as boolean add(Object o), boolean addAll(Collection c), boolean remove(Object o),
+   boolean removeAll(Collection c), void clear(), boolean retainAll(Collection c), boolean isEmpty(), int size(), boolean contains(Object o), boolean containsAll(Collection c), object[] a= c.toArray(), Iterator iterator();
+
+
+-> List (I) -> If we want to represent a group of individual objects as a single entity where duplicates are 
+               allowed and insertion order preserved then we should go for List
+	
+	1. ArrayList
+	2. LinkedList
+	3. Vector->Stack 
+
+-> Set (I) -> If we want to represent a group of individual objects as a single entity where 
+             duplicates are not allowed and insertion order not preserved, then we should go for Set
+
+	1. HashSet
+	2. LinedHashSet
+	3. SortedSet(I)->NavigableSet(I)* ->TreeSet
+
+-> SortedSet(I) -> If we want to represent a group of individual objects as a single entity where duplicates are not allowed 
+                but all objects should be inserted according to some sorting order then we should go for SortedSet
+
+	1. TreeSet
+	
+-> Queue (I) -> (FIFO): If we want to represent a group of individual objects prior to processing then we should go for Queue-> Ex- Before sending a mail, all id's we have to store somewhere and in which order we saved in the same order
+	mail's should be delivered (FIFO) 
+
+	1. PriorityQueue
+	2. Deque (I) -> ArrayDeque
+	
+-> Map (I) -> Map and Collection both are different. Map is not a child interface of Collection. If we want to represent a group of objects as key 
+	(duplicate key are not allowed) value pairs then we should go for Map Interface. ex- (key,value) => (rollNo, 123)
+	
+	1. HashMap -> LinkedHashMap
+	2. Dictionary (A)-> HashTable
+	3. SortedMap (I) ->NavigableMap(I)* -> TreeMap
+
+-> SortedMap (I) -> If we want to represent a group of objects as key-value pairs according to some sorting order of keys, then we should go for Map SortedMap
+
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+-> Default Natural Sorting Order-> Comparable Interface | Customizable Sorting -> Comparator Interface
+
+-> Cursors -> Enumeration(I), Iterator (I) and ListIterator(I) -> Access object one by one
+
+-> Utility Classes-> Collections, Arrays
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// List (I): Duplicates are allowed | order is preserved
+	1. We can differentiate duplicates by usng index
+	2. We can preserve insertion order by using indexjdbc:mysql://localhost:3306/?user=root
+	3. Index play very important role in List Interface
+	
+
+Methods Available: void add("1"), 
+  void add(int index, Object o), boolean addAll(int index, Collection c), Object remove(int index), int indexOf("A") // First occurrence, int lastIndexOf("A")// last occurrence, Object get(int index),
+  Object set(int index, Object new), ListIterator listIterator()
+
+/// ArrayList(C) (1.2): Resizable Array, Allowed Duplicates, Preserved Insertion Order, Allowed Heterogeneous Objects (Every where | Except in TreeSet and TreeMap), Allowed Null Insertion
+
+Constructors:
+
+ArrayList l=new ArrayList();
+-> Creates and empty ArrayList object with default initial capacity 10. Once Array List reaches its map capacity, a new Array List will be created with new capacity= (currrentCapacity*3/2)+1.
+
+ArrayList l=new ArrayList(int intialCapacity);
+ArrayList l=new ArrayList(Collection c);
+
+-> Array list object can be send over network,i.e. why all collection class by default implements Serializable Interface.
+-> Receiver netwrok able to copy collection object , i.e. why all collection class implements Clonable Interfcae
+(Usually we can use Collections to hold and transfer Objects from one place to another place, to provide support for this requirement every Collection already implements Serializable and Cloneable interfaces.)
+-> Implements RandomAccess->(Only ArrayList and Vector) Any random element we can access in same speed: RandomAccess doesn't contain any methods and it is a Marker interface.
+
+Note:
+ - ArrayList is best choice if our frequent operation is retrieval operation (Because ArrayList implements RandomAccess interface)
+ - ArrayList is the wrost choice if our frequent operation is insertion or deletion in the midlle (Bcoz several shift operation are require)
+ - By default ArrayList Object is non-synchronized (not a thread Safe) but we can get synchronized version of ArrayList by using Collections class synchronizedList() method:
+   (pulbic static List synchronizedList(List l))
+get Sychronized version of ArrayList:
+
+#Non-Synchronized
+ArrayList arr1ist=new ArrayList();
+
+#Synchronized
+List l=Collections.synchronizedList(arr1ist) 
+
+ - public static Set synchronizedSet(Set s) | public static Map synchronizedMap(Map m)
+ 
+------------------------------------------------------------------------------------------------------
+
+/// LinkedList(C):node based: The Underline Data Structure for LinkedList is double Linkedlist. Duplicates are allowed, allowed Null Insersion, Order is Preserved, Heterogeneous Objects are allowed.
+ -> Usually we use LinkedList to implements Stacks (LIFO) and Queues(FIFO) to provide support for this requirement, LinkedList class defines specific methods: 
+   : r, void addLast(Object o), Object getFirst(), Object getLast(), Object removeFirst(), Object removeLast().
+ -> Constructors:
+	1. LinkedList l=new LinkedList();
+	2. LinkedList l=new LinkedList(Collection c); // Interconversion b/w collection objects
+Note:
+ - LinkedList is best choice if our frequent operation is insertion or deletion in the midlle.
+ - LinkedList is worst choice if our frequent operation is retrieval operation.(Because LinkedList doesnot implements RandomAccess interface)
+
+
+------------------------------------------------------------------------------------------------------
+
+/// Differences between ArrayList and LinkedList
+
+ - Best, worst choice | Implements Interface RandomAccess
+ 
+ 
+------------------------------------------------------------------------------------------------------
+
+/// Vector (C) (1.0): The Underline Data Structure is Resizable Array , Duplicates are allowed, Insertion Order is Preserved, null is allowed, Heterogeneous Objects are allowed.
+ -> Most of the methods present in Vector are synchronized. Hence Vector object is Thread Safe. Best choice if the frequent operation is retrieval.
+ -> For Adding or remove Objects: Collection List(I)-> add(Objec o) | Remove(Object o), List(I)-> add(int index, Object o)|remove(int index), but in Vector(C)-> addElement(Object o)|removeElement(Object o)
+ -> Initial Capacity by default 10 | then next new capacity=2*cc.
+ -> Constructors:
+	1. Vector v=new Vector();
+	2. Vector v=new Vector(int initialCapacity);
+	3. Vector v=new Vector(int initialCapacity, int incremental capacity);
+	4. Vector v=new Vector(Collection c);
+
+/// Stack (C) : Child class of Vector.Designed class for LIFO( Based on Push and Pop)
+ -> Constructors:
+	1. Stack s=new Stack
+
+ -> Methods: Object push(Object o), Object pop(), 
+	Object peek()- To Returns the top of the statck without removal of object, empty(),
+	int search(object o) - If the specified object is available it returns its offset from top of the stack. amd If the object is not available the it returns -1.
+
+
+
+------------------------------------------------------------------------------------------------------
+ 
+// Set(I): Duplicates values are not allowed | insertion order is not preserved | Allowed null
+	
+ - Set interface does not contain any new methods. So we have to use only Collection interface methods.
+
+
+/// HashSet (C): Underlying data structure is hashtable. All Objects will be inserted based on hash-code of objects.
+ - Duplicates values are not allowed. If we trying to insert duplicates,we won't get any compile time or runtime exception. add() method simply returns false.
+ - HashSet is the best choice, if our frequent operation is Search operation
+ 
+ -> Constructors:
+	1. HashSet hs=new HashSet();  // Default initial capacity =16, Fill Ratio (Load Factor)= 0.75
+	2. HashSet hs=new HashSet(int initialcapacity); // Load Factor: 0.75
+	3. HashSet hs=new HashSet(int initialCapacity, float loadFactor);
+	4. HashSet hs=new HashSet(Collection c);  
+	
+-----------------------------------------------------------------------------------------------------
+
+/// LinkedHashSet (C): Child class of HashSet(C) | Duplicates are not allowed | insertion order is preserved | null allowed
+
+ - Underlying data structure of LinkedHashSet (Hybrid data Structure) - HashTable and LinkedList
+ - LinedHashSet is the best option to develop cache based applications, where duplicates are not allowed and insertion order must be preserved
+
+-----------------------------------------------------------------------------------------------------
+
+/// SortedSet(I) : Duplicates are not allowed | Object are stored in based on some sorting order | Default Natural Sorting Order - Ascending | Alphabetical 
+	Methods: 
+	- Object first(); // Return first element of the SortedSet
+	- Object last(); // Return last element of the SortedSet
+	- SortedSet headSet(Object obj); // Return SortedSet whose elements are < obj
+	- SortedSet tailSet(Object obj); //Return SortedSet whose elements are >= obj
+	- SortedSet subSet(Object obj1, Object obj2); // Return SortedSet whose elements are >=obj1 and <obj2
+	- Comparator comparator(); // Return Comparator object, that describe underlying sorting technique. 
+	
+------------------------------------------------------------------------------------------------------
+
+/// TreeSet (C) : Duplicates are not allowed | Insertion Order not preserved | Heterogeneous Objects are not allowed (Because of comparision) | null insertion is possible (Only one time)
+
+	- Underlying data structure is balanced Tree.(Red Black Tree Data Structure)
+	- Constructors:
+		1. TreeSet t=new TreeSet(); // Elements will be inserted based on default natural sorting order
+		2. TreeSet t=new TreeSet(Comparator cm); // Creates Empty TreeSet object where the elements will be inserted according to customized Sorting order, specified by 
+			Comparator Object.
+		3. TreeSet t=new TreeSet(Collection c);
+		4. TreeSet t=new TreeSet(SortedSet s);
+	
+	- null insertion in empty TreeSet is not allowed in jdk1.6 onwards
+	
+--------------------------------------------------------------------------------------------------------
+
+/// Comparable (I) : Its present in java.lang package and contain only a method - pulbic int compareTo(Object obj); // Value of int -ve,v+e,0
+
+	- example: obj1.compareTo(obj2);
+	- Return -ve if obj1 comes before obj2
+	- Return +ve of obj1 comes after obj2
+	- Return 0 if obj1 and obj2 are equal
+	
+
+Note: Comparable meant for default natural sorting order whereas Comparator meant for Customized sorting order.
+	
+-------------------------------------------------------------------------------------------------------------------
+
+Note: If default natural sorting order not available or if we are not satisfied with default natural sorting, then we can go for customized sorting by using comparator.
+
+/// Comparator : Its present in java.util package and contain two methods:
+
+	- public int compare(Object obj1, Object obj2)
+		1. Return -ve if obj1 comes before obj2
+		2. Return +ve of obj1 comes after obj2
+		3. Return 0 if obj1 and obj2 are equal
+	- public boolean equals(Object obj)
+	
+
+-> Whenever we are implementing compulsorily we should provide impl only for compare method. equals method is optional as it is already available in object class thrugh inheritance
+
+-> WAP to insert integer objects into TreeSet where sorting order is descending order.
+	
+	@Override
+	public int compare(Object o1, Object o2) {
+		Integer i1 = (Integer) o1;
+		Integer i2 = (Integer) o2;
+		if (i1 < i2)
+			return +1;
+		else if (i1 > i2)
+			return -1;
+		else
+			return 0;
+	}
+	
+-> if we are not passing comparator object in TreeSet Constructor, then internally JVM will call compareTo() which is meant for default natural sorting order.
+-> But if we are passing comparator object in TreeSet Constructor, then JVM will call compare() which is meant for customization sorting.
+
+ - Various possible implementations of compare() method: 
+	1. public int compare(Object obj1, Object obj2) // Impl for Default Sorting Order-ascending order
+		{
+		Integer i1 = (Integer) obj1;
+		Integer i2 = (Integer) obj2;
+		return i1.compareTo(i2);
+		}
+	2. Opposite of compareTo() //Descending Order
+		return -i1.compareTo(i2);
+	
+	3. return i2.compareTo(i1); // Descending Order
+	4. return +1; // Insertion Order
+	5. return -1; // Reverse of insertion order
+	6. return 0; // Only first element will be inserted, and all remaining elements are duplicate
+	
+WAP to insert String object into the TreeSet where all elements should be inserted according to reverse of alphabetical order.
+
+
+
+
+Map(I)-> if we want to insert group group of object as a key value pair
+Each Key Value pair called one entry (Map-> Group of entries)
+
+Methods:
+	a. Object put(Object key, Object value);
+	b. void putAll(Map m);
+	c. Object get(Object key);
+	d. Object remove(Object key);
+	e. boolean containsKey(Object key);
+	f. boolean containsValue(Object value)
+	g. boolean isEmpty();
+	h. int size();
+	i. void clear();
+	
+Collection Views of Map
+	a. Set keySet();
+	b. Collection values();
+	c. Set entrySet();
+	
+Entry(I)- Entry Interface define inside Map Interface. (Inner interface of MAP)
+	a. Object getKey();
+	b. Object getValue();
+	c. Object setValue(Object newValue);
+	
+	{a=10,b=20,c=30,d=40}
+	
+	
+-------------------------------------------------------------------------
+
+HashMap(): HashTable| inserion order is not preserved and it is based on hash-code of keys.
+		- duplicate keys are not allowed, but value can be duplicated
+		- Heterogeneous objects are allowed for both key and value
+		- Null is allowed for key (Only Once)
+		- Null is allowed for values(Any time)
+		- HashMap is the best choice for search related operation
+		
+Constructors
+
+		HashMap m=new HashMap(); // IC=16 LF=0.75
+		HashMap m=new HashMap(int InitialCapacity);
+		HashMap m=new HashMap(int InitialCapacity, float loadFactor);
+		HashMap m=new HashMap(Map m);
+		
+
+===============================================
+HashMap and HashTable
+
+HashMap m=new HashMap();
+
+-> All methods in HashMap are non synchronized | HashTable - Synchronized
+-> Not thread safe (Map m=Collections.SychronizedMap(m))| Thread Safe
+-> High Performance | Low Performance
+-> Null is allowed for key and value| Null is not applicable for HashTable
+-> jdk1.2 | jdk1.0
+
+====================================================
+
+LinkedHashMap (C):
+	- LinkedList+HashTable
+	- Insertion order is preserved
+	- Child class of HashMap
+	
+	
+
+HashMap-> JVM uses equals method to check duplicate object key
+
+IdentityHashMap-> JVM uses == operator to identify duplicate object key
+WeakHashMap
+SortedMap
+TreeMap
+
+=====================================================
+
+Queue(I):
+	- Used to hold elements before processing, following FIFO order
+	- Duplicates are allowed
+	- Insertion order depends on implementation
+	- Null Elements
+		a. LinkedList - Allows null
+		b. PriorityQueue - does not allow null
+		c. Follows FIFO (Except priorityQueue)
+		
+
+Methods:
+
+	a.Insersion
+		1. add(e) // If queue is full throws exception
+		2. offer(e) // Returns false
+	
+	b. Removal
+		1. remove() // If queue is empty throws exception
+		2. poll() // Returns null
+	
+	c. Peek (no removal)
+		1. element() // if queue is empty then throws exception
+		2. peek() // Returns null
+		
+	
+-----------------------------------------------------------------
+
+PriorityQueue(C)
+
+	- DEFAULT_INITIAL_CAPACITY =11
+	- NewCapacity = oldCapacity + ((oldCapacity < 64)
+                             ? (oldCapacity + 2)
+                             : (oldCapacity / 2));
+	- Uses Binary heap
+	- It process elements based on priority, not FIFO
+	- Elements are ordered based on : Comparable or Comparator
+	- Duplicates are allowed? // Yes
+	- Null not allowed
+	- Head= highest priority element 
+	
+Constructors:
+
+	PriorityQueue p=new PriorityQueue();
+	PriorityQueue p=new PriorityQueue(int initialCapacity);
+	PriorityQueue p=new PriorityQueue(Comparator c);
+	PriorityQueue p=new PriorityQueue(int initialCapacity, Comparator c);
+	PriorityQueue p=new PriorityQueue(Collection c);
+	
+	
+	

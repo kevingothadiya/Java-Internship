@@ -1,0 +1,43 @@
+<div class="container mt-5">
+
+  <div class="card shadow-lg border-0 p-4 table-card">
+
+    <h4 class="mb-4 fw-bold text-primary">Donation History</h4>
+
+    <div class="table-responsive">
+      <table class="table align-middle custom-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>donationDate</th>
+            <th>quantity</th>
+            <th>remark</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let donor of myDonationDetails">
+            <th scope="row">{{donor.id}}</th>
+            <td>{{donor.donationDate}}</td>
+            <td>{{donor.quantity}}</td>
+            <td>
+              <span class="badge px-3 py-2"
+                [ngClass]="{
+              'bg-success': donor.remark === 'Approve',
+              'bg-danger': donor.remark === 'Reject',
+              'bg-warning': donor.remark === 'Pending'
+            }">
+              
+              {{donor.remark}}
+              </span>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+</div>

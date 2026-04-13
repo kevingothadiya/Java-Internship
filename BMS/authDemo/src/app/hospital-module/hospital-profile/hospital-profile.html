@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <div *ngIf="hospitalDetails">
+    
+    <h3 class="mb-3 text-danger">Hospital Profile</h3>
+
+    <ul class="list-group">
+
+      <!-- User Info -->
+      <li class="list-group-item">
+        <strong>Name:</strong> {{ hospitalDetails.name }}
+      </li>
+
+      <li class="list-group-item">
+        <strong>Phone Number:</strong> {{ hospitalDetails.phoneNum }}
+      </li>
+
+      <li class="list-group-item">
+        <strong>Email Id:</strong> {{ hospitalDetails.email }}
+      </li>
+
+      <!-- Hospital Info -->
+      <li class="list-group-item">
+        <strong>Hospital Name:</strong> {{ hospitalDetails.hospitalName }}
+      </li>
+
+      <li class="list-group-item">
+        <strong>Address:</strong> {{ hospitalDetails.address }}
+      </li>
+
+      <li class="list-group-item">
+        <strong>Contact Number:</strong> {{ hospitalDetails.contactNum }}
+      </li>
+
+      <li class="list-group-item">
+        <strong>Licence Number:</strong> {{ hospitalDetails.licenceNumber }}
+      </li>
+
+    </ul>
+
+  </div>
+</div>

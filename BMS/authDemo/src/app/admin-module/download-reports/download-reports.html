@@ -1,0 +1,70 @@
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-7">
+
+      <div class="card shadow border-0">
+        <div class="card-body p-4">
+
+          <h5 class="fw-bold text-danger mb-1">Download Reports</h5>
+          <p class="text-muted small mb-4">Select a report type and click Download to export as Excel.</p>
+
+          <!-- Success -->
+          <div *ngIf="successMsg" class="alert alert-success d-flex align-items-center gap-2 py-2">
+            <i class="bi bi-check-circle-fill"></i> {{ successMsg }}
+          </div>
+
+          <!-- Error -->
+          <div *ngIf="errorMsg" class="alert alert-danger d-flex align-items-center gap-2 py-2">
+            <i class="bi bi-exclamation-circle-fill"></i> {{ errorMsg }}
+          </div>
+
+          <!-- Dropdown -->
+          <div class="mb-4">
+            <label class="form-label fw-semibold">Select Report</label>
+            <select class="form-select" [(ngModel)]="selectedReport">
+              <option value="" disabled>-- Choose a report --</option>
+              <option *ngFor="let r of reports" [value]="r.value">{{ r.label }}</option>
+            </select>
+          </div>
+
+          <!-- Preview card for selected report -->
+          <div *ngIf="selectedOption" class="card border-0 bg-light p-3 mb-4 d-flex flex-row align-items-center gap-3">
+            <i class="bi {{ selectedOption.icon }} fs-2 text-danger"></i>
+            <div>
+              <div class="fw-semibold">{{ selectedOption.label }}</div>
+              <div class="text-muted small">{{ selectedOption.description }}</div>
+              <div class="text-muted small mt-1">
+                <i class="bi bi-file-earmark-excel-fill text-success me-1"></i>{{ selectedOption.fileName }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Download Button -->
+          <button class="btn btn-danger w-100 fw-semibold"
+            [disabled]="!selectedReport || loading"
+            (click)="download()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2"></span>
+            <i *ngIf="!loading" class="bi bi-download me-2"></i>
+            {{ loading ? 'Downloading...' : 'Download' }}
+          </button>
+
+        </div>
+      </div>
+
+      <div class="row g-3 mt-2">
+        <div class="col-6" *ngFor="let r of reports">
+          <div 
+            [class.selected]="selectedReport === r.value"
+            (click)="selectedReport = r.value; successMsg=''; errorMsg=''">
+            <i class="bi {{ r.icon }} fs-4 text-danger"></i>
+            <!-- <div>
+              <div class="fw-semibold small">{{ r.label }}</div>
+              <div class="text-muted" style="font-size:0.75rem">{{ r.fileName }}</div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

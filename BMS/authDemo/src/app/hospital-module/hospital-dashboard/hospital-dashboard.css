@@ -1,0 +1,48 @@
+#wrapper {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+#sidebar-wrapper {
+  min-width: 150px;
+  max-width: 150px;
+  transition: all 0.3s;
+}
+
+.sidebar-heading {
+  font-size: 1.1rem;
+}
+
+.list-group-item {
+  border-radius: 0 !important;
+  font-size: 0.9rem;
+}
+
+.list-group-item.active {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  color: white !important;
+}
+
+.list-group-item:hover:not(.active) {
+  background-color: #f8d7da;
+  color: #dc3545;
+}
+
+.dashboard-card {
+  border-radius: 15px;
+  transition: all 0.3s ease;
+  background: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12) !important;
+}
+
+button {
+  border-radius: 10px !important;
+}

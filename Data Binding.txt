@@ -1,0 +1,1081 @@
+Data Binding
+  - Data Binding is a technique where the data stays in sync between the component and the view
+  - Whenever user updates the data in the view angular updates the component and when the component gets new data the angular update the view
+  - Two way to bind data in Angular:
+
+    a. One Way Binding
+      1. Component to view
+        i.  Interpolation
+        ii. Property Binding
+        iii. Class Binding
+        iv. Style Binding
+
+      2. View to Component
+        i. Event Binding
+
+    b. Two way Binding
+      1. ngModel
+
+// One Way Binding:
+
+# Property Binding:
+  - HTML Attribute Vs DOM Property 
+    HTM Attribute:  value of an attribute is constant
+
+  - Property binding is a one way binding technique, which will help to bind values to the properties of HTML elements.
+  - Whenever the value of the component changes, the angular updates the element property in the view
+  - We can set the properties such as class, href, src etc. using property binding.
+  - Sytax:
+
+    [binding-target]="binding-source"
+  - Example:
+    <h1 [disabled]="isDisabled"> I am Disabled </h1>
+    in ts: isDisabled = true
+
+
+# class Binding:
+  - The angular class binding is used to add or remove classes to and from the HTML elements.
+  - We can add CSS classes conditionally to an element.
+  - The Angular provides three ways to add/remove classes to and from the element:
+
+  a. Using the DOM 'className' property
+  b. Using the 'class' property
+  c. Using the 'NgClass' directive
+
+  -> Class binding with className
+    <h2 [className]="'myColor, myFontStyle'"> Hello </h2>
+
+  -> Class binding with class
+    <h2 [class]="'myColor, myFontStyle'">Hello</h2>
+    <h2 [class.myColor]="condition">Hello</h2>
+    <h2 [class] = "MyCall()">Hello</h2>
+    <h2 [class] = "condition?'myColor':'myFontStyle'"> Hello </h2>
+
+  -> Class binding with NgClass
+    - It offers more flexibility like easily adding multiple classes etc.
+    - Using ngClass we can create dynamic styles in angular components by using conditional expressions.
+
+    - ngClass with String:
+      <h2 [ngClass]="'myColor myFontStyle'">Hello</h2>
+    - ngClass with Array:
+      <h2 [ngClass]="['myColor','myFontStyle']">Hello</h2>
+    - ngClass with Object:
+      <h2 [ngClass]="{'myColor':true}">Hello</h2>
+
+    - ngClass without square bracket:
+      <h2 ngClass='myColor'>Hello </h2>
+
+
+
+# Style Binding: Inline Style CSS
+
+  - <h2 [style] ="'background-color:yellow'"> Hello</h2>
+  - <h2 [style]="'background-color:yellow, color:red'">Hello</h2>
+  - <h2 [style]="{'color':'red','fontFamily':'cooper'}">Hello</h2>
+  - <h2 [style]="myStyle">Hello</h2>
+
+  - myStyles={
+
+    'color':'red',
+    'fontFamily':'cooper',
+    'font-size':'45px'
+   }
+
+  - <h2 [style.fontSize.px]="'60'">Hello</h2>
+  - <h2 [style.color]="condition?'red':'black'">Hello</h2>
+
+  - We can use ngStyle directive is place of style
+
+    <h2 [ngStyle]="myStyle"> Hello</h2>
+
+
+#Event Binding:
+
+  - Event: An event is an action detected by a program
+  - Events can be user actions such as clicking a mouse button or pressing a key etc.
+  - Event binding- Lets us listen for and response to user actions such as - KeyStrokes, mouse movements, clicks and touches.
+
+  - Angular uses following syntax for event binding:
+    (target-event)="TemplateStatement"
+
+  -Example:
+    <button (click)="onSave()"> Save </button>
+
+  - click, dblclick, mouseover, mouseout,keydown,keypress etc.
+
+  - Creating an Event Handler with Button click
+  - Initializing class properties on button click
+  - Event handler with Parameters
+  - Event Object as argument
+
+
+# Get Textbox value in Angular: Template Reference Variable
+
+  - The Template reference variable is a reference to any DOM Element, Component or a directive in the template.
+
+  - Sytax: #nameofRef
+
+  - Example:
+
+    <input #fullName type="text">
+    <button type="button" (click)="callFunction(fullName.value)"> CALL </button>
+
+
+
+
+// Two Way Binding:
+
+  - Two way binding means that changes maded to our model in the component are propagated to the view
+  - Any changes made in the view are immediately updated in the underlying component
+
+
+  - Sytax:
+    [(someproperty)] = "value" 
+
+  - Angular has a special directive 'ngModel' which sets up the two way binding
+  - ngModel:
+    $ The Angular uses the ngModel directive to achieve two way b inding on html form elements
+    $ Two-way binding= Property Binding[] + Event Binding()
+
+  - ngModel directive is not a part of the Angular core library. It is part of the @angular/forms.
+  - We need to import the formsModule package into our Angular Module.
+
+  - Sytax:
+    <input type="text" name="fullName" [(ngModel)]="displayData">
+    <h2> {{}displayData} </h2>
+
+    in ts:
+    public displayData=''
+
+
+ #Install Angular Material:
+  - Run this command inside your Angular project folder:
+    ng add @angular/material
+  - During installation, it will ask:
+    Choose a theme (example: Indigo/Pink)
+    Enable typography styles? → Yes
+    Enable browser animations? → Yes
+
+  - Import Material Modules
+  - Use Material Component in HTML
+
+
+# Install Bootstrap library:
+  - Run this command inside your Angular project folder:
+    npm install bootstrap@5.3.8
+  - Add Bootstrap CSS to Angular Project
+    # Open angular.json
+    # Find the styles section and add Bootstrap path:
+      "styles": [
+        "node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "src/styles.css"
+        ]
+    # Add Bootstrap JS (for modal, dropdown, etc.)
+      npm install @popperjs/core
+    # Then update angular.json:
+      "scripts": [
+        "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+        ]
+    # Example:
+      <button class="btn btn-primary">
+        Click Me
+      </button>
+
+    # ng add @ng-bootstrap/ng-bootstrap
+
+#Angular Directives:
+
+  - Angular directives are classes that enhance the features of a HTML element or component
+  - Add additional behaviour to the we application
+  - They can transform a static HTML page into dynamic by manipulating DOM.
+  - The @directive decorator is used to mark a typscript class as an angular directive.
+  - The decorator contains some configuration metadata that determines how the directive should
+    be processed, instantiated and used at runtime
+
+
+=> Angular Directive Types:
+  a. Structural Directive
+    1. ngIf
+    2. ngFor
+    3. ngSwitch
+
+  b. Component Directive
+
+  c. Attribute Directive
+    1. ngClass
+    2. ngStyle 
+    3. ngModel
+
+
+=> Structural Directives in Angular:
+  - Structural directives are responsible for the structure and layout of the DOM element.
+  - It is used to hide and display the elements on the DOM.
+
+  #ngIf: directive is used to 'add or remove the DOM element' based on expression value assigned to it.
+    - The expression value may be either true/false
+    - Expression must return a Boolean value
+    - ngIf directive does not hide the DOM element, It removes the entire element along with its subtree from the DOM
+
+    - Example:
+      <h1 *ngIf="condition;else elsePart">Hello </h1>
+
+      <ng-template  #elsePart>
+        <p>Else Part </p>
+      </ng-template>
+
+    - <div *ngIf="condition; then truePart; else elsePart">
+     </div>
+
+      <ng-template  #truePart>
+        <p>If Part </p>
+      </ng-template>
+
+      <ng-template  #elsePart>
+        <p>Else Part </p>
+      </ng-template>
+
+    - Angular uses ng-template with element selector in order to display the else section in DOM
+
+  #ngSwitch:
+    - The ngSwitch directive is applied to the container element with a switch expression.
+    - Containe elements: div, header, footer etc.
+
+    - Example: ts-> displayData="ONE"
+
+    - <div [ngSwitch]='TEN'>
+      <div *ngSwitchCase="'ONE'"> 1 </div>
+      <div *ngSwitchCase="'FIVE'">  5 </div>
+      <div *ngSwitchDefault> Not Matched </div>
+
+      </div>
+
+    - If there is more than one match, all matching elements are added to the DOM.
+    - If we add more than one ngSwitchDefault directive, all of them are displayed.
+
+  #ngFor:
+    - Angular ngFor directive iterates over a collection of data like an array, list etc.
+    - And creates HTML element for each of the items from a HTML Template.
+
+    - Example: ts-> public fruits=['Mango','Orange','Banana']
+
+    - public studentList=[
+      {
+        'name':'Deepak',
+        'rollNo':'20'
+
+      },
+      {
+        'name':'Rajat',
+        'rollNo':'56'
+
+      }
+    ]
+
+    - [{
+        'name':'Deepak',
+        'rollNo':'20'
+        'optedSubject':['Physics','Chemistry','Maths']
+
+      }]
+
+    - HTML=>
+      <ul *ngFor="let fruit of fruits">
+        <li>{{fruit}}</li>
+      </ul>
+
+
+    - index as i, first as f, last as l, odd as o , even as e
+
+
+
+#Pipes:
+
+  - In Angular , a Pipe is used to transform data in the template before displaying it to the user.
+  - Pipes make our UI cleaner and reduce extra logic in Component.
+  - In Angular 1, filters are used which are later called pipes onwards Angular2.
+
+  1. Pipes are simple functions to use in template expression to accept an input value and return a transformed value.
+  2. Pipes are useful because we can use them throughout our application, while only declaring each pipe once.
+
+  - Syntax: {{ data | name_of_pipe }}  example- {{ title | uppercase }}
+
+#Built in Pipes:
+
+  1. Lowercase, Uppercase, Titlecase Pipes
+  2. json Pipe
+  3. Slice Pipe
+  4. date Pipe (short, medium, long, shortTime, shortDate etc.)
+  5. currency pipe
+  6. percent pipe
+  7. number pipe (number)
+
+
+#Custome Pipe
+
+  - Angular makes provision to create custome pipes that convert the data in the format that we need.
+  - Angular Pipes are typeScript classes with the @pipe decorator.
+  - CLI Command: ng g p name_of_pipe
+  - Parameter | Multiparameters
+
+ # args:number[] vs ...args:number[]
+
+ # === Vs ==
+
+
+<!-- <p>dashboard works!</p>
+
+<h1> Demo of Pipe Concepts</h1>
+
+<h2>{{data | uppercase}}</h2>
+
+<h2>{{data | lowercase}}</h2>
+
+<h2>{{data | titlecase}}</h2>
+
+<h2>{{data | slice:0:8}}</h2>
+
+<h2>{{myPercent | percent}}</h2>
+
+<h2>{{myNumber1 | number:'3.3-3'}}</h2>
+<h2>{{myNumber2 | number:'3.3-3'}}</h2>
+
+<h2>{{myNumber1 | currency:'INR'}}</h2>
+<h2>{{myNumber1 | currency:'INR':'symbol'}}</h2>
+<h2>{{myNumber1 | currency:'INR':'code'}}</h2>
+<hr>
+<h2>{{myDate}}</h2>
+<h2>short: {{myDate|date:'short'}}</h2>
+<h2>Medium: {{myDate|date:'medium'}}</h2>
+<h2>Long: {{myDate|date:'long'}}</h2>
+
+<h2>shortDate: {{myDate|date:'shortDate'}}</h2>
+<h2>MediumDate: {{myDate|date:'mediumDate'}}</h2>
+<h2>LongDate: {{myDate|date:'longDate'}}</h2>
+<h2>shortTime: {{myDate|date:'shortTime'}}</h2>
+<h2>MediumTime: {{myDate|date:'mediumTime'}}</h2>
+<h2>LongTime: {{myDate|date:'longTime'}}</h2>
+
+<h2>{{myDate|date:'dd-MM-yyyy'}}</h2>
+<h2>{{myDate|date:'hh-mm-ss a'}}</h2>
+
+
+-->
+
+
+<h1>{{4|power:3:4}}</h1>
+
+#Service
+
+
+#Service in Angular:
+
+  => Without using Service: Duplication of Data
+
+  1. What is an Angular Service? : 
+
+    Service is a piece of reusable code with a focused purpose. A code that we will use across multiple components in our application.
+
+    Our components need to access the data. we can write data access code in each Component, but this is very inefficient and breaks the rule of single responsibility (DRY). The Component should focus on presenting the data to the user.
+
+    The task of receiving data from the back-end server should be delegated to another class. We call a class - a service class because it provides each Component with the data it needs.
+
+    "Angular services provide a way for us to separate Angular app data and functions that can be used by multiple components in our app. To be used by multiple components, a service must be made injectable. Services that are injectable and used by a component become dependencies of that component. The component depends on those services and can't function without them."
+
+  => Service is just a class with specific purpose:
+    a. Data sharing across multiple components
+    b. It is used to apply application logic
+    c. We can use Services for external interactions such as connecting to a APIs,database.
+
+  2. Dependency injection? :
+
+    Dependency injection is the mechanism that manages the dependencies of an app's components and the services that other components can use.
+
+  3. Create a new service :
+
+    ng generate service api-access --skip-tests
+
+  4. Registration of Angular Service
+
+    import { DataService } from './data.service'
+    Navigate to our app module file -> register the service under providers: [DataService],
+
+  4.  Inject the new service into Component
+
+
+# DI:
+
+    class CPU
+    {
+      CPU(int generation)
+      {
+
+      }
+    }
+
+    class Motherboard
+    {
+      Motherboard()
+      {
+      }
+    }
+
+    class Computer
+    {
+      private CPU cpu;
+      private Motherboard mb;
+
+      Computer(CPU c, Motherboard m)
+      {
+        this.cpu=c;
+        this.nb=m
+      }
+    }
+
+
+=====================================
+
+# API call from Service using Angular:
+
+  - import HttpClientModule in app.module.ts:
+
+    import {HttpClientModule in } from '@angular/common/http'
+
+    imports:[
+    HttpClientModule,
+    .....
+    ]
+
+
+  - import HttpClient in Service class and create an object using constructor injection
+
+  - use the httpClient object with http method to call third-party api.
+
+
+===================================================================================================
+  myPosts$ = this.myService.getComments();
+  - myPosts$ holds the Observable directly instead of subscribing manually
+  - | async in the template subscribes automatically, and when data arrives it updates the view instantly
+  - No need for ngOnInit, subscribe(), or ChangeDetectorRef — Angular handles everything
+  - async pipe also auto-unsubscribes when the component is destroyed, preventing memory leaks
+
+  Observable emits data → async pipe receives it → template updates automatically
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 p-4">
+
+            <div >
+                <div class="bg-primary p-3">Registration Form</div>
+
+               <form #myForm="ngForm" (ngSubmit)="getFormData(myForm)">
+
+                 <div class="mb-3">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" id="fullName"
+                        placeholder="Enter Name" name="name" ngModel>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address:</label>
+                    <input type="email" class="form-control" id="email"
+                        placeholder="Enter Email Address" name="email" ngModel required>
+                </div>
+                <div class="mb-3">
+                    <label for="pw" class="form-label">Password:</label>
+                    <input type="password" class="form-control" id="pw"
+                        placeholder="Enter Password" name="password" ngModel>
+                </div>
+
+                <div>
+                    <button type="submit" class="btn btn-primary col-md-12">Register</button>
+                </div>
+
+               </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<strong></strong># Forms:
+
+  - Angular Forms are used to handle users input. We can use Angular form in our application to enable users to login, to update profile etc.
+  - Two Approches to handle users input through Form:
+
+  1. Template Driven Form
+    a. Simple Basic Form
+    b. Easy to start with
+    c. Based on Template (HTML)
+
+  2. Reactive Form
+    a. Complex Form with More Controls
+    b. Structure of form is defined in Typescript class
+
+# Template Driven Form:
+
+  - Template driven forms are best if we want to add a simple form to our application. For example- login, contact, registration etc.
+  - Template driven forms is created using directives in the template. Example: ngForm, ngModel, ngSubmit
+  - Basic HTML validations can be used to validate the form fields. Example- required, maxlength, minlength etc.
+  - In the case of custom validations, directives can be used
+
+
+  - To enable template driven forms, first we need to import FormsModule in app.module.ts 
+  - Once the formsModule is imported, the application will be ready for Form programming.
+
+  $ Controls can be added to the form using the ngModel directive.
+
+  - Example:
+    <div class="container">
+      <div class="row">
+      <div class="col-md-6 p-4">
+       <div class="bg-primary p-2"> <h2>Registration form</h2></div>
+      <form #myForm="ngForm" (ngSubmit)="myFormData(myForm.value)" >
+      <div class="form-group">
+        <label for="fullname">Full Name:</label>
+        <input type="text" class="form-control" id="fullname" placeholder="Enter full Name" name="name" ngModel>
+      </div>
+      <div class="form-group">
+        <label for="email">Email ID:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" ngModel>
+      </div>
+       <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" ngModel>
+      </div>
+      
+
+      <div class="col-md-12"><button type="submit" class="btn btn-primary col-md-12">Submit</button></div>
+      </form>
+      </div>
+      </div>
+    </div>
+
+
+# Template Driven Form Validations:
+
+  1. Validations in Template driven forms are provided by the validation directives.
+  2. The Angular Form Module comes with several built-in validators.
+
+=> Disable Browser Validations-> We need to add novalidate attribute in <form> element.
+
+  3. The built-in validators use the HTML 5 validation attributes like - required, minlength,maxlength & pattern
+
+=> Properties (form implementation of angular validation): 
+
+  a. touched    - clicking on input element after on clicking on some other part of form -> True
+  b. untouched  - clicking on input element after on clicking on some other part of form -> false
+  c. valid    - data should be inside input element- True
+  d. invalid    - opposite of valid
+  e. pristine    - No changes in form after form load - True 
+  f. dirty    - Opposite of pristine
+
+-> class.is-invalid='name.touched && name.invalid'
+          <div class="alert alert-danger" *ngIf="brnch.touched && brnch.invalid">
+            <div *ngIf="brnch.errors && brnch.errors['required']">
+            select branch
+            </div>
+          </div>
+
+-> [disabled]='FormData.invalid'
+
+# Working with drop down (Select and Option Tag)
+
+# Working with Radio Button and Checkbox
+
+  checkboxData: string[] = [];
+  onChang(e: any) {
+
+      if (e.target.checked) {
+        this.checkboxData.push(e.target.value)
+      } else {
+        let index = this.checkboxData.indexOf(e.target.value)
+        this.checkboxData.splice(index, 1)
+      }
+
+    console.log("Checkbox Data->>>",this.checkboxData);
+    }
+
+# Reset Form: 
+
+  import { NgForm } from '@angular/forms';
+
+  resetForm(formData:NgForm)
+  {
+    formData.resetForm();
+  }
+
+ # Forms:
+
+  - Angular Forms are used to handle users input. We can use Angular form in our application to enable users to login, to update profile etc.
+  - Two Approches to handle users input through Form:
+
+  1. Template Driven Form
+    a. Simple Basic Form
+    b. Easy to start with
+    c. Based on Template (HTML)
+
+  2. Reactive Form
+    a. Complex Form with More Controls
+    b. Structure of form is defined in Typescript class
+
+# Template Driven Form:
+
+  - Template driven forms are best if we want to add a simple form to our application. For example- login, contact, registration etc.
+  - Template driven forms is created using directives in the template. Example: ngForm, ngModel, ngSubmit
+  - Basic HTML validations can be used to validate the form fields. Example- required, maxlength, minlength etc.
+  - In the case of custom validations, directives can be used
+
+
+  - To enable template driven forms, first we need to import FormsModule in app.module.ts 
+  - Once the formsModule is imported, the application will be ready for Form programming.
+
+  $ Controls can be added to the form using the ngModel directive.
+
+  - Example:
+    <div class="container">
+      <div class="row">
+      <div class="col-md-6 p-4">
+       <div class="bg-primary p-2"> <h2>Registration form</h2></div>
+      <form #myForm="ngForm" (ngSubmit)="myFormData(myForm.value)" >
+      <div class="form-group">
+        <label for="fullname">Full Name:</label>
+        <input type="text" class="form-control" id="fullname" placeholder="Enter full Name" name="name" ngModel>
+      </div>
+      <div class="form-group">
+        <label for="email">Email ID:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" ngModel>
+      </div>
+       <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd" ngModel>
+      </div>
+      
+
+      <div class="col-md-12"><button type="submit" class="btn btn-primary col-md-12">Submit</button></div>
+      </form>
+      </div>
+      </div>
+    </div>
+
+
+# Template Driven Form Validations:
+
+  1. Validations in Template driven forms are provided by the validation directives.
+  2. The Angular Form Module comes with several built-in validators.
+
+=> Disable Browser Validations-> We need to add novalidate attribute in <form> element.
+
+  3. The built-in validators use the HTML 5 validation attributes like - required, minlength,maxlength & pattern
+
+=> Properties (form implementation of angular validation): 
+
+  a. touched    - clicking on input element after on clicking on some other part of form -> True
+  b. untouched  - clicking on input element after on clicking on some other part of form -> false
+  c. valid    - data should be inside input element- True
+  d. invalid    - opposite of valid
+  e. pristine    - No changes in form after form load - True 
+  f. dirty    - Opposite of pristine
+
+-> class.is-invalid='name.touched && name.invalid'
+          <div class="alert alert-danger" *ngIf="brnch.touched && brnch.invalid">
+            <div *ngIf="brnch.errors && brnch.errors['required']">
+            select branch
+            </div>
+          </div>
+
+-> [disabled]='FormData.invalid'
+
+# Working with drop down (Select and Option Tag)
+  <select class="form-select" aria-label="Default select example">
+    <option selected>Open this select menu</option>
+    <option value="1">One</option>
+    <option value="2">Two</option>
+    <option value="3">Three</option>
+  </select>
+
+# Working with radio button  
+
+# Working with Checkbox
+
+  checkboxData: string[] = [];
+  onChang(e: any) {
+
+      if (e.target.checked) {
+        this.checkboxData.push(e.target.value)
+      } else {
+        let index = this.checkboxData.indexOf(e.target.value)
+        this.checkboxData.splice(index, 1)
+      }
+
+    console.log("Checkbox Data->>>",this.checkboxData);
+    }
+
+# Reset Form: 
+
+  import { NgForm } from '@angular/forms';
+
+  resetForm(formData:NgForm)
+  {
+    formData.resetForm();
+  }
+
+
+
+# Array In Angular:
+
+  - In Angular, arrays are handled using standard TypeScript array methods like push(), splice(), filter(), find(), etc.
+  - cities: string[] = ['Mumbai', 'Delhi', 'Chennai'];
+
+  - Add data in Array:
+    addCity(newCity: string) {
+      this.cities.push(newCity);
+      }
+
+  - Delete using value:
+    deleteCity(city: string) {
+      this.cities = this.cities.filter(c => c !== city);
+    }
+  - Delete using index:
+    deleteCityByIndex(index: number) {
+      this.cities.splice(index, 1);
+    }
+  - Get all data: console.log(this.cities);
+  - Get specific value : 
+    getCity(index: number) {
+      return this.cities[index];
+    }
+  - Check Duplicate:
+      addCity(newCity: string) {
+        if (!this.cities.includes(newCity)) {
+        this.cities.push(newCity);
+        } else {
+        console.log('City already exists');
+        }
+
+      }
+  - Get the index of data
+    this.checkboxData.indexOf(e.target.value)
+
+# Routing:
+  - Routing in Angular allows us to navigate between different components (pages) without reloading the browser.
+  - It helps create a Single Page Application (SPA) where only content changes — not the entire page
+  - The <router-outlet></router-outlet> is a directive exported by RouterModule and acts as a placeholder
+    - That indicates to the router where it needs to insert the matched component.
+
+# Navigation Example: href= routerLink
+  <a routerLink="/">Home</a>
+  <a routerLink="/about">About</a>
+
+# Page Not Found, Wildcards and pathMatch
+
+  1. path:'**' with component 
+  2. path:'**' with redirectTo:'/home' pathMatch=:'full' / 'prefix' (Default)
+
+- pathMatch: 'prefix' (Default behavior)
+  a.  - Angular checks whether the URL starts with the given path.
+    - If it starts with that path → route matches.
+
+      const routes: Routes = [
+        { path: '', component: HomeComponent, pathMatch: 'prefix' }
+      ];
+
+    - Now these URLs will match:
+         /
+       /about
+       /contact
+       /dashboard
+    - Because all URLs start with empty string ('').
+
+    - Example:
+      const routes: Routes = [
+      { path: 'admin', component: AdminComponent, pathMatch: 'prefix' }
+        ];
+
+    - Matches:
+      /admin
+      /admin/users
+      /admin/settings
+      /admin/dashboard
+
+    - Because all start with: admin
+
+- pathMatch: 'full'
+  a.  - Angular checks whether the entire URL matches exactly with the given path.
+    - Route matches only when the full path is matched.
+
+      const routes: Routes = [
+        { path: '', component: HomeComponent, pathMatch: 'full' }
+      ];
+    - Now only this URL matches: /
+    - These will NOT match: 
+      /about
+      /contact
+      /dashboard
+
+
+# Types of Routes in Angular
+  - Default Route : Loads when application starts.
+    # { path: '', component: HomeComponent } // http://localhost:4200/
+
+  - Static Route : Fixed path navigation
+    # { path: 'contact', component: ContactComponent } // /contact
+
+  - Redirect Route: Automatically redirects user
+    # { path: '', redirectTo: '/home', pathMatch: 'full' } // / → redirects to /home
+
+  - Wildcard Route (Page Not Found) : Handles invalid URLs
+    # { path: '**', component: PageNotFoundComponent }
+    # Always keep wildcard route at last position.
+
+  - Dynamic Route (Route Parameters) : Passing data inside URL
+    1. { path: 'user/:id', component: UserComponent } // /user/101
+    2. this.router.navigate(['/details',emp.id])
+    3. Get value inside component: 
+      constructor(private route: ActivatedRoute) {}
+      ngOnInit() {
+        console.log(this.route.snapshot.params['id']);
+      }
+
+      this.route.paramMap.subscribe((params:ParamMap)=>{
+
+        let id=params.get('id')
+      })
+
+# Mulitple Route Parameters
+
+  1. path:'home/:id/:name'
+
+# Absolute Path (/home) and Relative Path (home): 
+
+  1. Absolute Path: '/home'  [../home]
+  2. Relative Path: 'home'   [./home]
+
+# ParamMap Observable
+
+# Optional Router Parameters ({id:s.id})
+
+# Child Routes or Nested Routes
+ i can create backend blood management system using spring boot than i want to create front end using angular ,here i want home page that can have contain registration button and login button and you header according you and give good looking
+
+
+
+# JWT Authentication in Angular :
+  Login → store token in localStorage
+  Interceptor → attach token automatically to API requests
+  AuthGuard → protect routes
+  Logout → clear token
+
+- Architecture flow : Login → Save token → Interceptor adds token → Guard checks token → Access secured routes
+
+#Step -1: Store token after Login
+
+  - When user logs in successfully, backend returns JWT token.
+    {
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    }
+
+
+  - this.authService.login(credentials).subscribe(res => {
+      localStorage.setItem('token', res.token);
+    });
+
+#Step-2: Create Auth Service
+  export class AuthService {
+      constructor() {}
+
+      saveToken(token: string) {
+      localStorage.setItem('token', token);
+      }
+
+      getToken(): string | null {
+      return localStorage.getItem('token');
+      }
+
+      isLoggedIn(): boolean {
+      return !!localStorage.getItem('token');
+      }
+
+      logout() {
+      localStorage.removeItem('token');
+      }
+    }
+
+#Step-3: HTTP Interceptor (Attach Token Automatically) : Attach JWT token in every API request header
+
+    - Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..
+
+    -  export const authInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
+
+        const storageService =inject(MyLocalStorage)
+        const skipUrls=['/login','/registration']
+        const shouldSkipUrl=skipUrls.some(u=>req.url.includes(u));
+        if(shouldSkipUrl)
+        {
+        return next(req)
+        }
+
+        const token=storageService.getItem('token');
+        if(token)
+        {
+        const cloneReq=req.clone({
+          setHeaders:{
+          Autherization:'Bearer '+token,
+          'Content-Type': 'application/json'
+          }
+        })
+        return next(cloneReq)
+        }
+        return next(req);
+      };
+
+
+#Step -4: Register Interceptor in AppModule
+
+    - providers: [
+        {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+        }
+      ]
+    - multi: true : Because Angular allows multiple interceptors
+
+    -     provideHttpClient(
+        withInterceptors([authInterceptorInterceptor])
+      )
+
+
+#Step -5 : AuthGuard (Protect Routes)
+
+    - Prevent unauthorized users from opening secure pages
+
+    - export class AuthGuard implements CanActivate {
+      constructor(
+      private authService: AuthService,
+      private router: Router
+      ) {}
+
+      canActivate(): boolean {
+
+      if (this.authService.isLoggedIn()) {
+        return true;
+      }
+
+      this.router.navigate(['/login']);
+      return false;
+      }
+    }
+
+    or
+
+    export const authGuardGuard: CanActivateFn = (route, state) => {
+
+      const myStorageSerivce=inject(StorageService)
+      const myRouter=inject(Router)
+      const token=myStorageSerivce.getItem('authToken')
+
+      if(token)
+      {
+      return true;
+      }
+      myRouter.navigate(['/login'])
+      return false;
+    };
+
+
+#Step -6: Protect Routes Using Guard
+
+    - app-routing.module.ts :
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard]
+      }
+    - Without token → redirect to login | With token → access granted
+
+
+#Step -7: Logout Implementation
+
+    - logout() {
+        this.authService.logout();
+        this.router.navigate(['/login']);
+      }
+    - This removes token and blocks secured routes again
+
+
+#Step -8 : Full Flow Diagram:
+
+    Login Page
+       ↓
+    User enters credentials
+       ↓
+    Backend returns JWT token
+       ↓
+    Save token → localStorage
+       ↓
+    Interceptor adds token to API headers
+       ↓
+    AuthGuard checks token before route access
+       ↓
+    Secure pages accessible
+
+
+#Step-9 : Can We check token expiration
+
+
+
+<strong></strong>#Local Storage:
+  - In Angular localStorage is used to store data in the browser permanently (until manually cleared)
+  - It's commonly used for things like JWT tokens, user preferences, theme settings and cached data.
+
+  - localStorage is a browser Web Storage API that stores data as key-value pairs (string format)
+    and persists even after page refresh or browser restart
+  - Example: localStorage.setItem('username','Deepak')
+
+# Methods in localStorage API
+
+  - Save data:
+    localStorage.setItem('token','Bearer ssbhsjb78yuhfjuih');
+
+  - Get data:
+    localStorage.getItem('token');
+
+  - Remove data:
+    localStorage.removeItem('token');
+
+  - Clear Everything:
+    localStorage.clear();
+
+  - Store Object:
+    const userData= {
+      name:'Deepak Vishwakarma',
+      role: 'Admin'
+    };
+
+    localStorage.saveItem('user',JSON.stringify(userData));
+
+  - Retrive Object:
+    const userData=JSON.parse(localStorage.getItem('user') || '{}');
+
+
+
+
+# Best practice
+  - Instead of using localStorage directly everywhere, create a Storage Service:
+
+  export class StorageService {	
+      setItem(key: string, value: string) {
+      localStorage.setItem(key, value);
+      }
+
+      getItem(key: string) {
+      return localStorage.getItem(key);
+      }
+
+      removeItem(key: string) {
+      localStorage.removeItem(key);
+      }
+    }
+
+  - Use it like: this.storageService.setItem('token', token);
+ 
