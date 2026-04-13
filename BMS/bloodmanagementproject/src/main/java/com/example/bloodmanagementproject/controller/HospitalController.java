@@ -40,6 +40,14 @@ public class HospitalController {
         return new ResponseEntity<>(hospitalService.getBloodRequestHistory(id),HttpStatus.OK);
     }
 
+    @GetMapping("/request/history/{id}/paged")
+    public ResponseEntity<?> getBloodRequestHistoryPaged(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size){
+        return new ResponseEntity<>(hospitalService.getBloodRequestHistoryPaged(id, page, size), HttpStatus.OK);
+    }
+
     @GetMapping("/profile/{userId}")
     public ResponseEntity<HospitalProfileResponse> getHospitalProfile(@PathVariable Long userId) {
         return ResponseEntity.ok(hospitalService.getHospitalByUserId(userId));

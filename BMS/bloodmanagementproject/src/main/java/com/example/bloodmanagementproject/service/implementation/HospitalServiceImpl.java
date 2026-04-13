@@ -8,6 +8,9 @@ import com.example.bloodmanagementproject.domain.BloodStock;
 import com.example.bloodmanagementproject.domain.Hospital;
 import com.example.bloodmanagementproject.domain.Users;
 import com.example.bloodmanagementproject.helper.MapperHelper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import com.example.bloodmanagementproject.model.HospitalBloodRequestHistory;
 import com.example.bloodmanagementproject.model.HospitalProfileResponse;
 import com.example.bloodmanagementproject.proxy.BloodRequestProxy;
@@ -80,7 +83,7 @@ public class HospitalServiceImpl implements HospitalService {
         if(!bloodStock.getBloodGrp().equalsIgnoreCase(bloodRequestProxy.getBloodGrp())){
             throw new RuntimeException("No Blood Found");
         }
-        else if (bloodStock.getUnitsAvailable() > bloodRequestProxy.getQuantity()) {
+        else if (bloodStock.getUnitsAvailable() >= bloodRequestProxy.getQuantity()) {
             bloodRequest.setStatus("Pending");
             bloodRequest.setRequestDate(LocalDate.now());
             bloodRequest.setHospital(hospital);
@@ -145,5 +148,26 @@ public class HospitalServiceImpl implements HospitalService {
         response.setEmail(user.getEmail());
 
         return response;
+    }
+
+    @Override
+    public Page<HospitalBloodRequestHistory> getBloodRequestHistoryPaged(Long id, int page, int size) {
+        Hospital hospital = hospitalRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("No Hospital Found"));
+
+        Page<BloodRequest> requestPage = bloodRequestRepo
+                .findByHospitalOrderByRequestDateDesc(hospital, PageRequest.of(page, size));
+
+        List<HospitalBloodRequestHistory> content = requestPage.getContent().stream()
+                .map(req -> HospitalBloodRequestHistory.builder()
+                        .id(req.getId())
+                        .bloodGrp(req.getBloodGrp())
+                        .quantity(req.getQuantity())
+                        .requestDate(req.getRequestDate())
+                        .status(req.getStatus())
+                        .build())
+                .toList();
+
+        return new PageImpl<>(content, requestPage.getPageable(), requestPage.getTotalElements());
     }
 }

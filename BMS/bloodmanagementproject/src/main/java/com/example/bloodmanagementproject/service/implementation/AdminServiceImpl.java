@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -58,7 +59,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Page<UserProxy> getUsersPaged(int page, int size) {
-        Page<Users> usersPage = userRepo.findAll(PageRequest.of(page, size));
+        Page<Users> usersPage = userRepo.findByRoleNot("ADMIN", PageRequest.of(page, size));
         List<UserProxy> content = usersPage.getContent().stream()
                 .map(u -> helper.map(u, UserProxy.class)).toList();
         return new PageImpl<>(content, usersPage.getPageable(), usersPage.getTotalElements());
@@ -68,7 +69,13 @@ public class AdminServiceImpl implements AdminService {
     public List<DonationProxy> getDonationDetails() {
         List<Donation> all = donationRepo.findAll();
         return all.stream().map(donation -> helper.map(donation,DonationProxy.class)).toList();
+    }
 
+    @Override
+    public List<BloodStockProxy> getBloodStock() {
+        return bloodStockRepo.findAll().stream()
+                .map(b -> new BloodStockProxy(b.getId(), b.getBloodGrp(), b.getUnitsAvailable().longValue(), b.getLastUpdated()))
+                .toList();
     }
 
     @Override
@@ -170,7 +177,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Page<DonationProxy> getDonationsPaged(int page, int size) {
-        Page<Donation> donationPage = donationRepo.findAll(PageRequest.of(page, size));
+        Page<Donation> donationPage = donationRepo.findAll(
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "donationDate")));
         List<DonationProxy> content = donationPage.getContent().stream()
                 .map(d -> helper.map(d, DonationProxy.class)).toList();
         return new PageImpl<>(content, donationPage.getPageable(), donationPage.getTotalElements());
@@ -178,7 +186,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Page<BloodRequestProxy> getBloodRequestsPaged(int page, int size) {
-        Page<BloodRequest> bloodPage = bloodRequestRepo.findAll(PageRequest.of(page, size));
+        Page<BloodRequest> bloodPage = bloodRequestRepo.findAll(
+                PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "requestDate")));
         List<BloodRequestProxy> content = bloodPage.getContent().stream()
                 .map(r -> new BloodRequestProxy(
                         r.getId(),
@@ -211,7 +220,7 @@ public class AdminServiceImpl implements AdminService {
             Long requiredUnits = bloodRequest.getQuantity();
             Double unitsAvailable = bloodStock.getUnitsAvailable();
 
-            if(requiredUnits<unitsAvailable && !bloodRequest.getStatus().equalsIgnoreCase("approve")){
+            if(requiredUnits<=unitsAvailable && !bloodRequest.getStatus().equalsIgnoreCase("approve")){
                 bloodStock.setUnitsAvailable(unitsAvailable - requiredUnits);
                 bloodRequest.setStatus("Approved");
                 bloodStock.setLastUpdated(LocalDateTime.now());

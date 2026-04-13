@@ -19,6 +19,8 @@ public interface AdminService {
 
     List<DonationProxy> getDonationDetails();
 
+    List<BloodStockProxy> getBloodStock();
+
     @Transactional
     String deleteUser(Long id);
 

@@ -41,6 +41,11 @@ public class AdminController {
         return new ResponseEntity<>(adminService.getDonationDetails(),HttpStatus.OK);
     }
 
+    @GetMapping("/blood-stock")
+    public ResponseEntity<?> getBloodStock(){
+        return new ResponseEntity<>(adminService.getBloodStock(), HttpStatus.OK);
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id){
         return new ResponseEntity<>(adminService.deleteUser(id),HttpStatus.OK);
