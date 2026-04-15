@@ -40,6 +40,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired private PasswordResetTokenRepo resetTokenRepo;
     @Autowired private PasswordHistoryRepo passwordHistoryRepo;
     @Autowired private EmailService emailService;
+    @Autowired private TokenCacheService tokenCacheService;
 
     @Value("${app.frontend.url}")
     private String frontendUrl;
@@ -73,10 +74,26 @@ public class AuthServiceImpl implements AuthService {
 
             if (authenticate.isAuthenticated()) {
                 saveAttempts(user, 0, null); // reset on success
+
+                // ── Redis Cache Check ──────────────────────────────────────
+                String cachedToken = tokenCacheService.getToken(authRequest.getEmail());
+                String token;
+
+                if (cachedToken != null && !util.isTokenExpired(cachedToken)) {
+                    // Valid token exists in Redis — reuse it
+                    token = cachedToken;
+                } else {
+                    // Generate new token and cache it
+                    UserDetails userDetails = userDetailService.loadUserByUsername(authRequest.getEmail());
+                    token = util.generateToken(userDetails);
+                    tokenCacheService.saveToken(authRequest.getEmail(), token);
+                }
+                // ──────────────────────────────────────────────────────────
+
                 UserDetails userDetails = userDetailService.loadUserByUsername(authRequest.getEmail());
-                String token = util.generateToken(userDetails);
                 String role = userDetails.getAuthorities().stream().findFirst()
                         .map(auth -> auth.getAuthority()).orElse(null);
+
                 AuthResponse response = new AuthResponse();
                 response.setToken(token);
                 response.setEmail(authRequest.getEmail());
@@ -162,6 +179,8 @@ public class AuthServiceImpl implements AuthService {
         userRepo.save(user);
         savePasswordHistory(user.getId(), user.getPassword());
         resetTokenRepo.delete(resetToken);
+        // Invalidate cached token so user must login fresh
+        tokenCacheService.removeToken(user.getEmail());
         return "Password reset successfully";
     }
 
